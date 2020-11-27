@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./pages/index.css" />
   <title>Mesto Russia</title>
 </head>
-<body>
+<body class="body">
   <div class="page">
     <!-- HEADER -->
     <header class="header">
@@ -20,12 +20,18 @@
     <!-- CONTENT -->
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
-        <div class="profile__header">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+        <div class="profile__info">
+          <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+
+          <div class="profile__text">
+            <div class="profile__header">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button"></button>
+            </div>
+
+            <p class="profile__subtitle">Исследователь океана</p>
+          </div>
         </div>
-        <p class="profile__subtitle">Исследователь океана</p>
         <button class="profile__add-button"></button>
       </section>
 

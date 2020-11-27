@@ -9,8 +9,26 @@
   overflow: hidden;
   color: #000000;
   margin: 0;
-  border: 1px solid red;
 
   /* приходится задавать ширину в пикселах, иначе text-overflow: ellipsis не работает */
   width: 190px;
 }
+
+@media screen and (min-width: 375px) {
+  .cards__title  {
+    width: 230px;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .cards__title  {
+    width: 270px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .cards__title  {
+    width: 190px;
+  }
+}
+

@@ -3,3 +3,18 @@
   row-gap: 20px;
   padding-bottom: 48px;
 }
+
+@media screen and (min-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 17px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 17px;
+    padding-bottom: 67px;
+  }
+}
