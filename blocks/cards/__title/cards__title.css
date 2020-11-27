@@ -10,5 +10,7 @@
   color: #000000;
   margin: 0;
   border: 1px solid red;
+
+  /* приходится задавать ширину в пикселах, иначе text-overflow: ellipsis не работает */
   width: 190px;
 }
