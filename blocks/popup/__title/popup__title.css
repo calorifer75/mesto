@@ -6,5 +6,14 @@
   line-height: 22px;
   color: #000000;
   text-align: center;
-  margin: 0 0 75px 0;
+  margin: 0 0 74px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__title {
+    font-size: 24px;
+    line-height: 29px;
+    text-align: left;
+    margin: 0 0 55px 0;
+  }
 }

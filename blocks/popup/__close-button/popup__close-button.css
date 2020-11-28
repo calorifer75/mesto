@@ -9,11 +9,21 @@
   padding: 0;
   background-image: url(../../../images/close-icon.svg);
   background-repeat: no-repeat;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0);
   background-size: cover;
   background-position: center;
 }
 
 .popup__close-button:hover {
   opacity: .6;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__close-button {
+    top: -47px;
+    right: -47px;
+    width: 56px;
+    height: 56px;
+  }
 }
