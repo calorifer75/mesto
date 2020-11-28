@@ -4,10 +4,11 @@
   background-color: #fff;
   border: none;
   outline: none;
-  width: 21px;
+  width: 30px;
   height: 19px;
   padding: 0;
   margin-top: 7px;
+  margin-left: 30px;
 }
 
 .cards__like:hover {
