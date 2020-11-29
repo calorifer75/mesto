@@ -1,5 +1,5 @@
 # Проект 4: Галерея фотографий
-* [Ссылка на GitHub Pages](???)
+* [Ссылка на GitHub Pages](https://calorifer75.github.io/mesto/index)
 
 ### Обзор
 * Интро
@@ -11,7 +11,7 @@
 Это учебный проект для отработки пройденного материала.
 Задачи
 * Сделать адаптивную верстку на основании макета.
-* [Ссылка на макет в Figma](https://www.figma.com/file/OyRWEjU6wBwRe1hapzQoLx/Sprint-3%3A-Russia-%2F-desktop-%2B-mobile?node-id=28503%3A0)
+* [Ссылка на макет в Figma](https://www.figma.com/file/StZjf8HnoeLdiXS7dYrLAh/JavaScript.-Sprint-4?node-id=24702%3A244)
 * Реализовать popup с возможностью изменения данных профиля
 
 **Технологии**
