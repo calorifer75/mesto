@@ -1,0 +1,16 @@
+.profile__text-block {
+  width: 100%;
+  max-width: 282px;
+}
+
+@media screen and (min-width: 678px) {
+  .profile__text-block {
+    max-width: 377px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .profile__text-block {
+    max-width: 533px;
+  }
+}
