@@ -1,10 +1,11 @@
 .profile__header {
   display: flex;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 @media screen and (min-width: 768px) {
   .profile__header {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
+    margin-top: 13px;
   }
 }

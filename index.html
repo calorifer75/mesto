@@ -14,7 +14,7 @@
       <!-- HEADER -->
       <header class="header">
         <img class="header__logo" src="./images/logo.svg" alt="Логотип" />
-        <hr class="header__hline" />
+        <div class="header__hline"></div>
       </header>
 
       <!-- CONTENT -->
@@ -30,13 +30,13 @@
             <div class="profile__text-block">
               <div class="profile__header">
                 <h1 class="profile__title">Жак-Ив Кусто</h1>
-                <button class="profile__edit-button"></button>
+                <button class="profile__edit-button" type="button"></button>
               </div>
 
               <p class="profile__subtitle">Исследователь океана</p>
             </div>
           </div>
-          <button class="profile__add-button"></button>
+          <button class="profile__add-button" type="button"></button>
         </section>
 
         <section class="cards">
@@ -115,11 +115,12 @@
     <!-- POPUP -->
     <div class="popup">
       <div class="popup__container">
-        <form id="popup-form">
-          <button class="popup__close-button" type="button"></button>
+        <button class="popup__close-button" type="button"></button>
+
+        <form class="popup__form" name="popup-form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__input" type="text" id="name" />
-          <input class="popup__input" type="text" id="about" />
+          <input class="popup__input popup__input_name" name="name" type="text" />
+          <input class="popup__input popup__input_about" name="about" type="text" />
           <button class="popup__save-button" type="submit">Сохранить</button>
         </form>
       </div>

@@ -1,5 +1,5 @@
 .cards__title {
-  font-family: Inter;
+  font-family: Inter, Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
@@ -9,5 +9,23 @@
   overflow: hidden;
   color: #000000;
   margin: 0;
+  max-width: 190px;
 }
 
+@media screen and (min-width: 375px) {
+  .cards__title {
+    max-width: 240px;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .cards__title {
+    max-width: 280px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .cards__title {
+    max-width: 190px;
+  }
+}
