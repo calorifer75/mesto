@@ -12,6 +12,7 @@
   background-color: #000;
   background-size: cover;
   background-position: center;
+  transition: opacity .3s;
 }
 
 .profile__edit-button:hover {
