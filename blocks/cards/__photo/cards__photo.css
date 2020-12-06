@@ -1,3 +1,17 @@
 .cards__photo {
   width: 100%;
+  object-fit: cover;
+  height: calc(100vw - 39px);
+}
+
+@media screen and (min-width: 768px) {
+  .cards__photo {
+    height: 400px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .cards__photo {
+    height: 282px;
+  }
 }

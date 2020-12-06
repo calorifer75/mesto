@@ -39,69 +39,7 @@
         </section>
 
         <section class="cards">
-          <div class="cards__card">
-            <img
-              class="cards__photo"
-              src="./images/карачаево.jpg"
-              alt="Карачаево-Черкессия"
-            />
-            <div class="cards__info">
-              <h2 class="cards__title">Карачаево-Черкессия</h2>
-              <button class="cards__like" type="button"></button>
-            </div>
-          </div>
 
-          <div class="cards__card">
-            <img
-              class="cards__photo"
-              src="./images/эльбрус.jpg"
-              alt="Гора Эльбрус"
-            />
-            <div class="cards__info">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button class="cards__like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="cards__card">
-            <img class="cards__photo" src="./images/домбай.jpg" alt="Домбай" />
-            <div class="cards__info">
-              <h2 class="cards__title">Домбай</h2>
-              <button class="cards__like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="cards__card">
-            <img
-              class="cards__photo"
-              src="./images/эльбрус.jpg"
-              alt="Гора Эльбрус"
-            />
-            <div class="cards__info">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button class="cards__like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="cards__card">
-            <img class="cards__photo" src="./images/домбай.jpg" alt="Домбай" />
-            <div class="cards__info">
-              <h2 class="cards__title">Домбай</h2>
-              <button class="cards__like" type="button"></button>
-            </div>
-          </div>
-
-          <div class="cards__card">
-            <img
-              class="cards__photo"
-              src="./images/карачаево.jpg"
-              alt="Карачаево-Черкессия"
-            />
-            <div class="cards__info">
-              <h2 class="cards__title">Карачаево-Черкессия</h2>
-              <button class="cards__like" type="button"></button>
-            </div>
-          </div>
         </section>
       </main>
 
@@ -111,6 +49,21 @@
       </footer>
     </div>
 
+    <!-- CARD TEMPLATE -->
+    <template class="cards__template">
+      <div class="cards__card">
+        <img
+          class="cards__photo"
+          src="./images/карачаево.jpg"
+          alt="Карачаево-Черкессия"
+        />
+        <div class="cards__info">
+          <h2 class="cards__title">Карачаево-Черкессия</h2>
+          <button class="cards__like" type="button"></button>
+        </div>
+      </div>
+    </template>
+
     <!-- POPUP -->
     <div class="popup">
       <div class="popup__container">
@@ -118,8 +71,16 @@
 
         <form class="popup__form" name="popup-form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input class="popup__input popup__input_type_name" name="name" type="text" />
-          <input class="popup__input popup__input_type_about" name="about" type="text" />
+          <input
+            class="popup__input popup__input_type_name"
+            name="name"
+            type="text"
+          />
+          <input
+            class="popup__input popup__input_type_about"
+            name="about"
+            type="text"
+          />
           <button class="popup__save-button" type="submit">Сохранить</button>
         </form>
       </div>
