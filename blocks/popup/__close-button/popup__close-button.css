@@ -12,6 +12,7 @@
   background-color: rgba(0, 0, 0, 0);
   background-size: cover;
   background-position: center;
+  transition: opacity .3s;
 }
 
 .popup__close-button:hover {

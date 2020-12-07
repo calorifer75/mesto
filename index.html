@@ -54,8 +54,8 @@
       <div class="cards__card">
         <img
           class="cards__photo"
-          src="./images/карачаево.jpg"
-          alt="Карачаево-Черкессия"
+          src=""
+          alt=""
         />
         <div class="cards__info">
           <h2 class="cards__title">Карачаево-Черкессия</h2>
@@ -64,8 +64,8 @@
       </div>
     </template>
 
-    <!-- POPUP -->
-    <div class="popup">
+    <!-- POPUP PROFILE -->
+    <div class="popup popup_type_profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button"></button>
 
@@ -82,6 +82,28 @@
             type="text"
           />
           <button class="popup__save-button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- POPUP ADD MESTO -->
+    <div class="popup popup_type_add-mesto">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+
+        <form class="popup__form" name="popup-form">
+          <h2 class="popup__title">Новое место</h2>
+          <input
+            class="popup__input popup__input_type_name"
+            name="name"
+            type="text"
+          />
+          <input
+            class="popup__input popup__input_type_path"
+            name="path"
+            type="text"
+          />
+          <button class="popup__save-button" type="submit">Создать</button>
         </form>
       </div>
     </div>
