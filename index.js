@@ -109,6 +109,7 @@ function makeCard(item) {
   newCardElement.querySelector(".cards__title").textContent = item.name;
   newCardElement.querySelector(".cards__photo").src = item.link;
   newCardElement.querySelector('.cards__like').addEventListener('click', likeToggle);
+  newCardElement.querySelector('.cards__trash').addEventListener('click', cardDelete);
 
   return newCardElement;
 }
@@ -116,6 +117,11 @@ function makeCard(item) {
 // переключение лайков
 function likeToggle(evt) {
   evt.target.classList.toggle('cards__like_liked');
+}
+
+// Удаление карточки
+function cardDelete(evt) {
+  evt.target.closest('.cards__card').remove();
 }
 
 profileEditButton.addEventListener("click", popupProfileOpen);
