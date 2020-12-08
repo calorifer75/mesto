@@ -69,7 +69,7 @@
     <!-- POPUP PROFILE -->
     <div class="popup popup_type_profile">
       <div class="popup__container">
-        <button class="popup__close-button" type="button"></button>
+        <button class="popup__close-button popup__close-button_type_profile" type="button"></button>
 
         <form class="popup__form" name="popup-form">
           <h2 class="popup__title">Редактировать профиль</h2>
@@ -90,7 +90,7 @@
 
     <!-- POPUP ADD MESTO -->
     <div class="popup popup_type_add-mesto">
-      <div class="popup__container">
+      <div class="popup__container popup__container_type_mesto">
         <button class="popup__close-button" type="button"></button>
 
         <form class="popup__form" name="popup-form">
@@ -107,6 +107,17 @@
           />
           <button class="popup__save-button" type="submit">Создать</button>
         </form>
+      </div>
+    </div>
+
+    <!-- POPUP IMAGE -->
+    <div class="popup popup_type_image">
+      <div class="popup__container">
+        <button class="popup__close-button"></button>
+
+        <img class="popup__image" src="./images/avatar.jpg" alt="">
+
+        <p class="popup__caption">test</p>
       </div>
     </div>
 

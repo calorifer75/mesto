@@ -21,6 +21,10 @@ const popupMestoPath = popupMesto.querySelector(".popup__input_type_path");
 const popupMestoForm = popupMesto.querySelector(".popup__form");
 const mestoAddButton = document.querySelector('.profile__add-button');
 
+// блок переменных всплывающей фотографии
+const popupImage = document.querySelector('.popup_type_image');
+const popupImageCloseButton = popupImage.querySelector('.popup__close-button');
+
 // начальные значения карточек
 const initialCards = [
   {
@@ -101,6 +105,16 @@ function popupMestoFormSubmitHandler(event) {
   popupMestoClose();
 }
 
+// открытие всплывающей фотографии
+function popupImageOpen() {
+  popupImage.classList.add('popup_opened');
+}
+
+// закрытие всплывающей фотографии
+function popupImageClose() {
+  popupImage.classList.remove("popup_opened");
+}
+
 // создание новой карточки
 function makeCard(item) {
   let cardTemplateElement = document.querySelector(".cards__template").content;
@@ -110,6 +124,7 @@ function makeCard(item) {
   newCardElement.querySelector(".cards__photo").src = item.link;
   newCardElement.querySelector('.cards__like').addEventListener('click', likeToggle);
   newCardElement.querySelector('.cards__trash').addEventListener('click', cardDelete);
+  newCardElement.querySelector('.cards__photo').addEventListener('click', popupImageOpen);
 
   return newCardElement;
 }
@@ -131,6 +146,8 @@ popupProfileForm.addEventListener("submit", popupProfileFormSubmitHandler);
 mestoAddButton.addEventListener('click', popupMestoOpen);
 popupMestoCloseButton.addEventListener('click', popupMestoClose);
 popupMestoForm.addEventListener('submit', popupMestoFormSubmitHandler);
+
+popupImageCloseButton.addEventListener('click', popupImageClose);
 
 const cards = initialCards.map(makeCard);
 document.querySelector(".cards").append(...cards);
