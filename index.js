@@ -106,8 +106,9 @@ function popupMestoFormSubmitHandler(event) {
 }
 
 // открытие всплывающей фотографии
-function popupImageOpen() {
+function popupImageOpen(evt) {
   popupImage.classList.add('popup_opened');
+  popupImage.querySelector('.popup__image').src = evt.target.src;
 }
 
 // закрытие всплывающей фотографии

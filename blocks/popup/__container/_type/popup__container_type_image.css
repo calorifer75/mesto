@@ -1,0 +1,29 @@
+.popup__container_type_image {
+  margin-top: 0;
+  padding: 0;
+  width: 75%;
+  height: 300px;
+  border-radius: 0;
+  background-color: unset;
+}
+
+@media screen and (min-width: 375px) {
+  .popup__container_type_image {
+    height: 355px;
+  }
+}
+
+@media screen and (min-width: 425px) {
+  .popup__container_type_image {
+    height: 395px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .popup__container_type_image {
+    width: auto;
+    height: auto;
+    max-width: 75vw;
+    max-height: 75vw;
+  }
+}
