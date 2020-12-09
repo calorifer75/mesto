@@ -109,6 +109,7 @@ function popupMestoFormSubmitHandler(event) {
 function popupImageOpen(evt) {
   popupImage.classList.add('popup_opened');
   popupImage.querySelector('.popup__image').src = evt.target.src;
+  popupImage.querySelector('.popup__image-caption').textContent = evt.target.closest('.cards__card').querySelector('.cards__info').textContent;
 }
 
 // закрытие всплывающей фотографии
