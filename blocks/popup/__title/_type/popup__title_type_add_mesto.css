@@ -1,0 +1,11 @@
+.popup__title_type_mesto {
+  text-align: left;
+  margin: 0 0 26px 0;
+}
+
+
+@media screen and (min-width: 768px) {
+  .popup__title_type_mesto {
+    margin: 0 0 47px 0;
+  }
+}

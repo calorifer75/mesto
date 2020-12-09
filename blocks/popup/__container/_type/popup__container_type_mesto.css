@@ -1,5 +1,7 @@
 @media screen and (max-width: 767px) {
   .popup__container_type_mesto {
     width: 240px;
+    padding: 32px 20px;
+    margin-top: 154px;
   }
 }

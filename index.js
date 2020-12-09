@@ -14,7 +14,7 @@ const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
 // блок переменных добавления места
-const popupMesto = document.querySelector(".popup_type_add-mesto");
+const popupMesto = document.querySelector(".popup_type_mesto");
 const popupMestoCloseButton = popupMesto.querySelector(".popup__close-button");
 const popupMestoName = popupMesto.querySelector(".popup__input_type_name");
 const popupMestoPath = popupMesto.querySelector(".popup__input_type_path");

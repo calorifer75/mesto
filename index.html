@@ -89,23 +89,25 @@
     </div>
 
     <!-- POPUP ADD MESTO -->
-    <div class="popup popup_type_add-mesto">
+    <div class="popup popup_type_mesto">
       <div class="popup__container popup__container_type_mesto">
         <button class="popup__close-button" type="button"></button>
 
         <form class="popup__form" name="popup-form">
-          <h2 class="popup__title">Новое место</h2>
+          <h2 class="popup__title popup__title_type_mesto">Новое место</h2>
           <input
-            class="popup__input popup__input_type_name"
+            class="popup__input popup__input_type_name popup__input_type_mesto"
             name="name"
             type="text"
+            placeholder="Название"
           />
           <input
-            class="popup__input popup__input_type_path"
+            class="popup__input popup__input_type_path popup__input_type_mesto"
             name="path"
             type="text"
+            placeholder="Ссылка на картинку"
           />
-          <button class="popup__save-button" type="submit">Создать</button>
+          <button class="popup__save-button popup__save-button_type_mesto" type="submit">Создать</button>
         </form>
       </div>
     </div>
