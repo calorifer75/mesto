@@ -3,7 +3,7 @@
   box-sizing: border-box;
   width: 282px;
   border-radius: 10px;
-  margin-top: 123px;
+  margin: 123px auto 0 auto;
   padding: 25px 22px;
   position: relative;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
