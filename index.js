@@ -108,9 +108,13 @@ function popupMestoFormSubmitHandler(event) {
 // открытие всплывающей фотографии
 function openPopupImage(evt) {
   popupImage.classList.add("popup_opened");
-  popupImage.querySelector(".popup__image").src = evt.target.src;
-  popupImage.querySelector(".popup__image-caption").textContent = evt.target
-    .closest(".cards__card").querySelector(".cards__info").textContent;
+
+  const imageElement = popupImage.querySelector(".popup__image");
+  imageElement.src = evt.target.src;
+  imageElement.alt = evt.target.alt;
+
+  popupImage.querySelector(".popup__image-caption").textContent =
+    evt.target.closest(".cards__card").querySelector(".cards__info").textContent;
 }
 
 // закрытие всплывающей фотографии
@@ -120,20 +124,22 @@ function closePopupImage() {
 
 // создание новой карточки
 function makeCard(item) {
-  let cardTemplateElement = document.querySelector(".cards__template").content;
-  let newCardElement = cardTemplateElement.cloneNode(true);
+  const cardTemplateElement = document.querySelector(".cards__template").content;
+  const newCardElement = cardTemplateElement.cloneNode(true);
+  const photoElement = newCardElement.querySelector(".cards__photo");
 
   newCardElement.querySelector(".cards__title").textContent = item.name;
-  newCardElement.querySelector(".cards__photo").src = item.link;
+
+  photoElement.src = item.link;
+  photoElement.alt = item.name;
+  photoElement.addEventListener("click", openPopupImage);
+
   newCardElement
     .querySelector(".cards__like")
     .addEventListener("click", toggleLike);
   newCardElement
     .querySelector(".cards__trash")
     .addEventListener("click", deleteCard);
-  newCardElement
-    .querySelector(".cards__photo")
-    .addEventListener("click", openPopupImage);
 
   return newCardElement;
 }
