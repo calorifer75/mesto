@@ -4,6 +4,10 @@
   height: calc(100vw - 39px);
 }
 
+.cards__photo:hover {
+  cursor: pointer;
+}
+
 @media screen and (min-width: 768px) {
   .cards__photo {
     height: 400px;

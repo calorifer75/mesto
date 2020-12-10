@@ -60,14 +60,14 @@ const initialCards = [
 ];
 
 // открытие формы редактирования профиля
-function popupProfileOpen() {
+function openPopupProfile() {
   popupProfile.classList.add("popup_opened");
   popupProfileName.value = profileTitle.textContent;
   popupProfileAbout.value = profileSubtitle.textContent;
 }
 
 // закрытие формы редактирования профиля
-function popupProfileClose() {
+function closePopupProfile() {
   popupProfile.classList.remove("popup_opened");
 }
 
@@ -78,16 +78,16 @@ function popupProfileFormSubmitHandler(event) {
   profileTitle.textContent = popupProfileName.value;
   profileSubtitle.textContent = popupProfileAbout.value;
 
-  popupProfileClose();
+  closePopupProfile();
 }
 
 // открытие формы добавления места
-function popupMestoOpen() {
+function openPopupMesto() {
   popupMesto.classList.add("popup_opened");
 }
 
 // закрытие формы добавления места
-function popupMestoClose() {
+function closePopupMesto() {
   popupMesto.classList.remove("popup_opened");
 }
 
@@ -102,11 +102,11 @@ function popupMestoFormSubmitHandler(event) {
 
   document.querySelector(".cards").prepend(newCard);
 
-  popupMestoClose();
+  closePopupMesto();
 }
 
 // открытие всплывающей фотографии
-function popupImageOpen(evt) {
+function openPopupImage(evt) {
   popupImage.classList.add("popup_opened");
   popupImage.querySelector(".popup__image").src = evt.target.src;
   popupImage.querySelector(".popup__image-caption").textContent = evt.target
@@ -114,7 +114,7 @@ function popupImageOpen(evt) {
 }
 
 // закрытие всплывающей фотографии
-function popupImageClose() {
+function closePopupImage() {
   popupImage.classList.remove("popup_opened");
 }
 
@@ -127,36 +127,36 @@ function makeCard(item) {
   newCardElement.querySelector(".cards__photo").src = item.link;
   newCardElement
     .querySelector(".cards__like")
-    .addEventListener("click", likeToggle);
+    .addEventListener("click", toggleLike);
   newCardElement
     .querySelector(".cards__trash")
-    .addEventListener("click", cardDelete);
+    .addEventListener("click", deleteCard);
   newCardElement
     .querySelector(".cards__photo")
-    .addEventListener("click", popupImageOpen);
+    .addEventListener("click", openPopupImage);
 
   return newCardElement;
 }
 
 // переключение лайков
-function likeToggle(evt) {
+function toggleLike(evt) {
   evt.target.classList.toggle("cards__like_liked");
 }
 
 // Удаление карточки
-function cardDelete(evt) {
+function deleteCard(evt) {
   evt.target.closest(".cards__card").remove();
 }
 
-profileEditButton.addEventListener("click", popupProfileOpen);
-popupProfileCloseButton.addEventListener("click", popupProfileClose);
+profileEditButton.addEventListener("click", openPopupProfile);
+popupProfileCloseButton.addEventListener("click", closePopupProfile);
 popupProfileForm.addEventListener("submit", popupProfileFormSubmitHandler);
 
-mestoAddButton.addEventListener("click", popupMestoOpen);
-popupMestoCloseButton.addEventListener("click", popupMestoClose);
+mestoAddButton.addEventListener("click", openPopupMesto);
+popupMestoCloseButton.addEventListener("click", closePopupMesto);
 popupMestoForm.addEventListener("submit", popupMestoFormSubmitHandler);
 
-popupImageCloseButton.addEventListener("click", popupImageClose);
+popupImageCloseButton.addEventListener("click", closePopupImage);
 
 const cards = initialCards.map(makeCard);
 document.querySelector(".cards").append(...cards);
