@@ -1,7 +1,6 @@
 .popup__input_type_mesto {
   font-size: 12px;
   line-height: 15px;
-  color: #C4C4C4;
 }
 
 .popup__input_type_mesto:nth-last-child(2) {

@@ -68,16 +68,16 @@
           type="button"
         ></button>
 
-        <form class="popup__form" name="popup-form">
+        <form class="popup__form" name="popup-form-profile">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input
             class="popup__input popup__input_type_name"
-            name="name"
+            name="profile-name"
             type="text"
           />
           <input
             class="popup__input popup__input_type_about"
-            name="about"
+            name="profile-about"
             type="text"
           />
           <button class="popup__save-button" type="submit">Сохранить</button>
@@ -90,19 +90,21 @@
       <div class="popup__container popup__container_type_mesto">
         <button class="popup__close-button" type="button"></button>
 
-        <form class="popup__form" name="popup-form">
+        <form class="popup__form" name="popup-form-mesto">
           <h2 class="popup__title popup__title_type_mesto">Новое место</h2>
           <input
             class="popup__input popup__input_type_name popup__input_type_mesto"
-            name="name"
+            name="mesto-name"
             type="text"
             placeholder="Название"
+            required
           />
           <input
             class="popup__input popup__input_type_path popup__input_type_mesto"
-            name="path"
-            type="text"
+            name="mesto-path"
+            type="url"
             placeholder="Ссылка на картинку"
+            required
           />
           <button
             class="popup__save-button popup__save-button_type_mesto"
@@ -125,6 +127,7 @@
       </div>
     </div>
 
-    <script src="./index.js"></script>
+    <script src="./scripts/initial-cards.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
