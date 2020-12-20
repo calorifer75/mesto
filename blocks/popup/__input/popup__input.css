@@ -12,6 +12,10 @@
   width: 100%;
 }
 
-.popup__input:nth-last-child(2) {
-  margin-top: 30px;
+.popup__input:nth-last-child(3) {
+  margin-top: 7px;
+}
+
+.popup__input:invalid {
+  border-bottom: 1px solid #FF0000;
 }
