@@ -7,12 +7,17 @@ const popupProfile = document.querySelector(".popup_type_profile");
 const popupProfileCloseButton = popupProfile.querySelector(
   ".popup__close-button"
 );
+const popupProfileSaveButton = document.querySelector(
+  ".popup__save-button_type_profile"
+);
 const popupProfileName = popupProfile.querySelector(".popup__input_type_name");
 const popupProfileAbout = popupProfile.querySelector(
   ".popup__input_type_about"
 );
 const popupProfileForm = popupProfile.querySelector(".popup__form");
-
+const popupProfileErrorList = Array.from(
+  popupProfile.querySelectorAll(".popup__error")
+);
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
@@ -23,6 +28,9 @@ const popupMestoCloseButton = popupMesto.querySelector(".popup__close-button");
 const popupMestoName = popupMesto.querySelector(".popup__input_type_name");
 const popupMestoPath = popupMesto.querySelector(".popup__input_type_path");
 const popupMestoForm = popupMesto.querySelector(".popup__form");
+const popupMestoErrorList = Array.from(
+  popupMesto.querySelectorAll(".popup__error")
+);
 const mestoAddButton = document.querySelector(".profile__add-button");
 
 // блок переменных всплывающей фотографии
@@ -61,7 +69,7 @@ function makeCard(item) {
   photoElement.src = item.link;
   photoElement.alt = item.name;
 
-  photoElement.addEventListener('click', () => {
+  photoElement.addEventListener("click", () => {
     popupImageElement.src = item.link;
     popupImageElement.alt = item.name;
     popupImageCaption.textContent = item.name;
@@ -106,14 +114,32 @@ function handleMestoFormSubmit(event) {
 profileEditButton.addEventListener("click", () => {
   popupProfileName.value = profileTitle.textContent;
   popupProfileAbout.value = profileSubtitle.textContent;
+  toggleButtonState(popupProfileSaveButton, [
+    popupProfileName,
+    popupProfileAbout,
+  ]);
   openPopup(popupProfile);
 });
 
-popupProfileCloseButton.addEventListener("click", () => closePopup(popupProfile));
+popupProfileCloseButton.addEventListener("click", () => {
+  popupProfileErrorList.forEach((errorElement) => {
+    errorElement.textContent = "";
+  });
+  closePopup(popupProfile);
+});
+
 popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
 
 mestoAddButton.addEventListener("click", () => openPopup(popupMesto));
-popupMestoCloseButton.addEventListener("click", () => closePopup(popupMesto));
+
+popupMestoCloseButton.addEventListener("click", () => {
+  popupMestoErrorList.forEach((errorElement) => {
+    errorElement.textContent = "";
+  });
+  popupMestoForm.reset();
+  closePopup(popupMesto);
+});
+
 popupMestoForm.addEventListener("submit", handleMestoFormSubmit);
 
 popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));

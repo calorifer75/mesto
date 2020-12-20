@@ -7,4 +7,6 @@
   color: #FF0000;
   display: block;
   margin-top: 5px;
+  min-height: 15px;
+  visibility: hidden;
 }

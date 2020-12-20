@@ -68,7 +68,12 @@
           type="button"
         ></button>
 
-        <form class="popup__form" name="popup-form-profile">
+        <form
+          class="popup__form"
+          name="popup-form-profile"
+          autocomplete="off"
+          novalidate
+        >
           <h2 class="popup__title">Редактировать профиль</h2>
 
           <input
@@ -95,8 +100,12 @@
 
           <span class="popup__error" id="profile-about-error">test</span>
 
-          <button class="popup__save-button" type="submit">Сохранить</button>
-
+          <button
+            class="popup__save-button popup__save-button_type_profile"
+            type="submit"
+          >
+            Сохранить
+          </button>
         </form>
       </div>
     </div>
@@ -106,7 +115,12 @@
       <div class="popup__container popup__container_type_mesto">
         <button class="popup__close-button" type="button"></button>
 
-        <form class="popup__form" name="popup-form-mesto">
+        <form
+          class="popup__form"
+          name="popup-form-mesto"
+          autocomplete="off"
+          novalidate
+        >
           <h2 class="popup__title popup__title_type_mesto">Новое место</h2>
 
           <input
@@ -156,5 +170,6 @@
 
     <script src="./scripts/initial-cards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
