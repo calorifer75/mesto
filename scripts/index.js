@@ -28,9 +28,6 @@ const popupMestoCloseButton = popupMesto.querySelector(".popup__close-button");
 const popupMestoName = popupMesto.querySelector(".popup__input_type_name");
 const popupMestoPath = popupMesto.querySelector(".popup__input_type_path");
 const popupMestoForm = popupMesto.querySelector(".popup__form");
-const popupMestoErrorList = Array.from(
-  popupMesto.querySelectorAll(".popup__error")
-);
 const mestoAddButton = document.querySelector(".profile__add-button");
 
 // блок переменных всплывающей фотографии
@@ -106,42 +103,41 @@ function handleMestoFormSubmit(event) {
   });
 
   cardsContainer.prepend(newCard);
-  popupMestoForm.reset();
 
   closePopup(popupMesto);
 }
 
+// открытие профиля
 profileEditButton.addEventListener("click", () => {
   popupProfileName.value = profileTitle.textContent;
   popupProfileAbout.value = profileSubtitle.textContent;
-  toggleButtonState(popupProfileSaveButton, [
-    popupProfileName,
-    popupProfileAbout,
-  ]);
+
+  resetErrors(popupProfile, settings);
   openPopup(popupProfile);
 });
 
+// закрытие профиля
 popupProfileCloseButton.addEventListener("click", () => {
-  popupProfileErrorList.forEach((errorElement) => {
-    errorElement.textContent = "";
-  });
   closePopup(popupProfile);
 });
 
-popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
-
-mestoAddButton.addEventListener("click", () => openPopup(popupMesto));
-
-popupMestoCloseButton.addEventListener("click", () => {
-  popupMestoErrorList.forEach((errorElement) => {
-    errorElement.textContent = "";
-  });
+// открытие места
+mestoAddButton.addEventListener("click", () => {
   popupMestoForm.reset();
+  resetErrors(popupMesto, settings);
+  openPopup(popupMesto);
+});
+
+// закрытие места
+popupMestoCloseButton.addEventListener("click", () => {
   closePopup(popupMesto);
 });
 
+// отправка форм
+popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
 popupMestoForm.addEventListener("submit", handleMestoFormSubmit);
 
+// закрытие картинки
 popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
 
 const cards = initialCards.map(makeCard);

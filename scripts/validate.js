@@ -1,16 +1,47 @@
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+// Убирает индикацию ошибок в переданном попупе
+function resetErrors(popupElement, settings) {
+  const formList = Array.from(
+    popupElement.querySelectorAll(settings.formSelector)
+  );
+
+  formList.forEach(function (formElement) {
+    const inputList = Array.from(
+      formElement.querySelectorAll(settings.inputSelector)
+    );
+    const submitButton = formElement.querySelector(
+      settings.submitButtonSelector
+    );
+
+    toggleButtonState(submitButton, inputList);
+
+    inputList.forEach(function (inputElement) {
+      hideInputError(inputElement, formElement, settings);
+    });
+  });
+}
+
 function hasInvalidInput(inputList) {
-  return inputList.some(function(inputElement) {
+  return inputList.some(function (inputElement) {
     return !inputElement.validity.valid;
   });
 }
 
 function toggleButtonState(buttonElement, inputList) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__save-button_disabled');
-    buttonElement.setAttribute('disabled', 'disabled');
+    buttonElement.classList.add("popup__save-button_disabled");
+    buttonElement.setAttribute("disabled", "disabled");
   } else {
-    buttonElement.classList.remove('popup__save-button_disabled');
-    buttonElement.removeAttribute('disabled');
+    buttonElement.classList.remove("popup__save-button_disabled");
+    buttonElement.removeAttribute("disabled");
   }
 }
 
@@ -27,14 +58,19 @@ function hideInputError(inputElement, formElement, settings) {
 
   inputElement.classList.remove(settings.inputErrorClass);
   errorElement.classList.remove(settings.errorClass);
-  errorElement.textContent = '';
+  errorElement.textContent = "";
 }
 
 function checkInputValidity(inputElement, formElement, settings) {
   if (inputElement.validity.valid) {
     hideInputError(inputElement, formElement, settings);
   } else {
-    showInputError(inputElement, formElement, inputElement.validationMessage, settings);
+    showInputError(
+      inputElement,
+      formElement,
+      inputElement.validationMessage,
+      settings
+    );
   }
 }
 
@@ -47,25 +83,22 @@ function enableValidation(settings) {
       evt.preventDefault();
     });
 
-    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
-    const submitButton = formElement.querySelector(settings.submitButtonSelector);
+    const inputList = Array.from(
+      formElement.querySelectorAll(settings.inputSelector)
+    );
+    const submitButton = formElement.querySelector(
+      settings.submitButtonSelector
+    );
 
     toggleButtonState(submitButton, inputList);
 
     inputList.forEach(function (inputElement) {
-      inputElement.addEventListener('input', function() {
+      inputElement.addEventListener("input", function () {
         checkInputValidity(inputElement, formElement, settings);
         toggleButtonState(submitButton, inputList);
-      })
-    })
+      });
+    });
   });
 }
 
-enableValidation({
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-button",
-  inactiveButtonClass: "popup__save-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-});
+enableValidation(settings);
