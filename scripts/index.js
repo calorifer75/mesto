@@ -140,5 +140,27 @@ popupMestoForm.addEventListener("submit", handleMestoFormSubmit);
 // закрытие картинки
 popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
 
+// закрытие попупа кликом на оверлей
+function closePopupByOverlay(popupElement, evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popupElement);
+  }
+}
+
+// закрытие профиля кликом на оверлей
+popupProfile.addEventListener('click', function (evt) {
+  closePopupByOverlay(popupProfile, evt);
+})
+
+// закрытие места кликом на оверлей
+popupMesto.addEventListener('click', function (evt) {
+  closePopupByOverlay(popupMesto, evt);
+})
+
+// закрытие картинки кликом на оверлей
+popupImage.addEventListener('click', function (evt) {
+  closePopupByOverlay(popupImage, evt);
+})
+
 const cards = initialCards.map(makeCard);
 cardsContainer.append(...cards);
