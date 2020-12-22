@@ -36,13 +36,24 @@ const popupImageCloseButton = popupImage.querySelector(".popup__close-button");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__image-caption");
 
+// нажатие клавиши на документе
+function handleDocumentKeyDown(evt) {
+  if (evt.key === "Escape") {
+    closePopup(popupProfile);
+    closePopup(popupMesto);
+    closePopup(popupImage);
+  }
+}
+
 // открытие попапов
 function openPopup(popup) {
+  document.addEventListener("keydown", handleDocumentKeyDown);
   popup.classList.add("popup_opened");
 }
 
 // закрытие попапов
 function closePopup(popup) {
+  document.removeEventListener("keydown", handleDocumentKeyDown);
   popup.classList.remove("popup_opened");
 }
 
@@ -148,19 +159,19 @@ function closePopupByOverlay(popupElement, evt) {
 }
 
 // закрытие профиля кликом на оверлей
-popupProfile.addEventListener('click', function (evt) {
+popupProfile.addEventListener("click", function (evt) {
   closePopupByOverlay(popupProfile, evt);
-})
+});
 
 // закрытие места кликом на оверлей
-popupMesto.addEventListener('click', function (evt) {
+popupMesto.addEventListener("click", function (evt) {
   closePopupByOverlay(popupMesto, evt);
-})
+});
 
 // закрытие картинки кликом на оверлей
-popupImage.addEventListener('click', function (evt) {
+popupImage.addEventListener("click", function (evt) {
   closePopupByOverlay(popupImage, evt);
-})
+});
 
 const cards = initialCards.map(makeCard);
 cardsContainer.append(...cards);
