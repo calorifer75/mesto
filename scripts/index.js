@@ -37,23 +37,21 @@ const popupImageElement = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__image-caption");
 
 // нажатие клавиши на документе
-function handleDocumentKeyDown(evt) {
+function handleDocumentEscapeDown(evt) {
   if (evt.key === "Escape") {
-    closePopup(popupProfile);
-    closePopup(popupMesto);
-    closePopup(popupImage);
+    closePopup(document.querySelector('.popup_opened'));
   }
 }
 
 // открытие попапов
 function openPopup(popup) {
-  document.addEventListener("keydown", handleDocumentKeyDown);
+  document.addEventListener("keydown", handleDocumentEscapeDown);
   popup.classList.add("popup_opened");
 }
 
 // закрытие попапов
 function closePopup(popup) {
-  document.removeEventListener("keydown", handleDocumentKeyDown);
+  document.removeEventListener("keydown", handleDocumentEscapeDown);
   popup.classList.remove("popup_opened");
 }
 

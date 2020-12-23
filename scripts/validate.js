@@ -37,10 +37,10 @@ function hasInvalidInput(inputList) {
 
 function toggleButtonState(buttonElement, inputList) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("popup__save-button_disabled");
+    buttonElement.classList.add(settings.inactiveButtonClass);
     buttonElement.setAttribute("disabled", "disabled");
   } else {
-    buttonElement.classList.remove("popup__save-button_disabled");
+    buttonElement.classList.remove(settings.inactiveButtonClass);
     buttonElement.removeAttribute("disabled");
   }
 }
@@ -74,6 +74,25 @@ function checkInputValidity(inputElement, formElement, settings) {
   }
 }
 
+function setEventListeners(formElement, settings) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(settings.inputSelector)
+  );
+
+  const submitButton = formElement.querySelector(
+    settings.submitButtonSelector
+  );
+
+  toggleButtonState(submitButton, inputList);
+
+  inputList.forEach(function (inputElement) {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(inputElement, formElement, settings);
+      toggleButtonState(submitButton, inputList);
+    });
+  });
+}
+
 function enableValidation(settings) {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
 
@@ -83,21 +102,7 @@ function enableValidation(settings) {
       evt.preventDefault();
     });
 
-    const inputList = Array.from(
-      formElement.querySelectorAll(settings.inputSelector)
-    );
-    const submitButton = formElement.querySelector(
-      settings.submitButtonSelector
-    );
-
-    toggleButtonState(submitButton, inputList);
-
-    inputList.forEach(function (inputElement) {
-      inputElement.addEventListener("input", function () {
-        checkInputValidity(inputElement, formElement, settings);
-        toggleButtonState(submitButton, inputList);
-      });
-    });
+    setEventListeners(formElement, settings);
   });
 }
 
