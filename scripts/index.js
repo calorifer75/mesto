@@ -1,3 +1,5 @@
+import Card from "./Card.js";
+
 // блок карточек
 const cardsContainer = document.querySelector(".cards");
 const cardTemplateElement = document.querySelector(".cards__template").content;
@@ -63,33 +65,6 @@ function toggleLike(evt) {
 // Удаление карточки
 function deleteCard(evt) {
   evt.target.closest(".cards__card").remove();
-}
-
-// создание новой карточки
-function makeCard(item) {
-  const newCardElement = cardTemplateElement.cloneNode(true);
-  const photoElement = newCardElement.querySelector(".cards__photo");
-
-  newCardElement.querySelector(".cards__title").textContent = item.name;
-
-  photoElement.src = item.link;
-  photoElement.alt = item.name;
-
-  photoElement.addEventListener("click", () => {
-    popupImageElement.src = item.link;
-    popupImageElement.alt = item.name;
-    popupImageCaption.textContent = item.name;
-    openPopup(popupImage);
-  });
-
-  newCardElement
-    .querySelector(".cards__like")
-    .addEventListener("click", toggleLike);
-  newCardElement
-    .querySelector(".cards__trash")
-    .addEventListener("click", deleteCard);
-
-  return newCardElement;
 }
 
 // отправка формы редактирования профиля
@@ -171,5 +146,15 @@ popupImage.addEventListener("click", function (evt) {
   closePopupByOverlay(popupImage, evt);
 });
 
-const cards = initialCards.map(makeCard);
-cardsContainer.append(...cards);
+// создание карточек и вывод в DOM
+initialCards.forEach(item => {
+  item.popupImage = popupImage;
+  item.popupImageElement = popupImageElement;
+  item.popupImageCaption = popupImageCaption;
+  item.popupOpenFunction = openPopup;
+
+  const cardInstance = new Card(item, ".cards__template");
+  const cardElement = cardInstance.generateCard();
+
+  cardsContainer.append(cardElement);
+});
