@@ -1,25 +1,19 @@
 import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 // блок карточек
 const cardsContainer = document.querySelector(".cards");
-const cardTemplateElement = document.querySelector(".cards__template").content;
 
 // блок переменных профиля
 const popupProfile = document.querySelector(".popup_type_profile");
 const popupProfileCloseButton = popupProfile.querySelector(
   ".popup__close-button"
 );
-const popupProfileSaveButton = document.querySelector(
-  ".popup__save-button_type_profile"
-);
 const popupProfileName = popupProfile.querySelector(".popup__input_type_name");
 const popupProfileAbout = popupProfile.querySelector(
   ".popup__input_type_about"
 );
 const popupProfileForm = popupProfile.querySelector(".popup__form");
-const popupProfileErrorList = Array.from(
-  popupProfile.querySelectorAll(".popup__error")
-);
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
@@ -27,8 +21,6 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 // блок переменных добавления места
 const popupMesto = document.querySelector(".popup_type_mesto");
 const popupMestoCloseButton = popupMesto.querySelector(".popup__close-button");
-const popupMestoName = popupMesto.querySelector(".popup__input_type_name");
-const popupMestoPath = popupMesto.querySelector(".popup__input_type_path");
 const popupMestoForm = popupMesto.querySelector(".popup__form");
 const mestoAddButton = document.querySelector(".profile__add-button");
 
@@ -41,7 +33,7 @@ const popupImageCaption = popupImage.querySelector(".popup__image-caption");
 // нажатие клавиши на документе
 function handleDocumentEscapeDown(evt) {
   if (evt.key === "Escape") {
-    closePopup(document.querySelector('.popup_opened'));
+    closePopup(document.querySelector(".popup_opened"));
   }
 }
 
@@ -55,16 +47,6 @@ function openPopup(popup) {
 function closePopup(popup) {
   document.removeEventListener("keydown", handleDocumentEscapeDown);
   popup.classList.remove("popup_opened");
-}
-
-// переключение лайков
-function toggleLike(evt) {
-  evt.target.classList.toggle("cards__like_liked");
-}
-
-// Удаление карточки
-function deleteCard(evt) {
-  evt.target.closest(".cards__card").remove();
 }
 
 // отправка формы редактирования профиля
@@ -81,22 +63,26 @@ function handleProfileFormSubmit(event) {
 function handleMestoFormSubmit(event) {
   event.preventDefault();
 
-  const newCard = makeCard({
-    name: popupMestoName.value,
-    link: popupMestoPath.value,
-  });
+  const item = {
+    popupImage: popupImage,
+    popupImageElement: popupImageElement,
+    popupImageCaption: popupImageCaption,
+    popupOpenFunction: openPopup,
+  };
+  const cardInstance = new Card(item, ".cards__template");
+  const cardElement = cardInstance.generateCard();
 
-  cardsContainer.prepend(newCard);
-
+  cardsContainer.prepend(cardElement);
   closePopup(popupMesto);
 }
 
 // открытие профиля
 profileEditButton.addEventListener("click", () => {
+  popupProfileForm.reset();
+
   popupProfileName.value = profileTitle.textContent;
   popupProfileAbout.value = profileSubtitle.textContent;
 
-  resetErrors(popupProfile, settings);
   openPopup(popupProfile);
 });
 
@@ -108,7 +94,6 @@ popupProfileCloseButton.addEventListener("click", () => {
 // открытие места
 mestoAddButton.addEventListener("click", () => {
   popupMestoForm.reset();
-  resetErrors(popupMesto, settings);
   openPopup(popupMesto);
 });
 
@@ -147,7 +132,7 @@ popupImage.addEventListener("click", function (evt) {
 });
 
 // создание карточек и вывод в DOM
-initialCards.forEach(item => {
+initialCards.forEach((item) => {
   item.popupImage = popupImage;
   item.popupImageElement = popupImageElement;
   item.popupImageCaption = popupImageCaption;
@@ -157,4 +142,20 @@ initialCards.forEach(item => {
   const cardElement = cardInstance.generateCard();
 
   cardsContainer.append(cardElement);
+});
+
+// создание валидаторов для каждой формы
+const formList = Array.from(document.querySelectorAll(".popup__form"));
+formList.forEach((form) => {
+  const validateInstance = new FormValidator(
+    {
+      inputSelector: ".popup__input",
+      submitButtonSelector: ".popup__save-button",
+      inactiveButtonClass: "popup__save-button_disabled",
+      inputErrorClass: "popup__input_type_error",
+      errorClass: "popup__error_visible",
+    },
+    form
+  );
+  validateInstance.enableValidation();
 });
