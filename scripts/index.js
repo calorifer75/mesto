@@ -22,6 +22,8 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 const popupMesto = document.querySelector(".popup_type_mesto");
 const popupMestoCloseButton = popupMesto.querySelector(".popup__close-button");
 const popupMestoForm = popupMesto.querySelector(".popup__form");
+const popupMestoName = popupMesto.querySelector(".popup__input_type_name");
+const popupMestoLink = popupMesto.querySelector(".popup__input_type_path");
 const mestoAddButton = document.querySelector(".profile__add-button");
 
 // блок переменных всплывающей фотографии
@@ -68,6 +70,8 @@ function handleMestoFormSubmit(event) {
     popupImageElement: popupImageElement,
     popupImageCaption: popupImageCaption,
     popupOpenFunction: openPopup,
+    name: popupMestoName.value,
+    link: popupMestoLink.value,
   };
   const cardInstance = new Card(item, ".cards__template");
   const cardElement = cardInstance.generateCard();
