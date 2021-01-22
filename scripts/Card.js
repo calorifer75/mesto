@@ -1,17 +1,15 @@
 class Card {
-  constructor(data, tempateSelector) {
-    this._popupImage = data.popupImage;
-    this._popupImageElement = data.popupImageElement;
-    this._popupImageCaption = data.popupImageCaption;
-    this._popupOpenFunction = data.popupOpenFunction;
+  constructor(data, tempateSelector, openPopupImageCallback) {
+    this._element = document
+      .querySelector(tempateSelector)
+      .content.cloneNode(true);
+    this._photoElement = this._element.querySelector(".cards__photo");
     this._name = data.name;
     this._link = data.link;
-    this._templateSelector = tempateSelector;
-  }
 
-  // получение разметки
-  _getTemplate(templateSelector) {
-    return document.querySelector(templateSelector).content.cloneNode(true);
+    this._photoElement.addEventListener("click", () => {
+      openPopupImageCallback(this._link, this._name);
+    });
   }
 
   // переключение лайков
@@ -37,20 +35,10 @@ class Card {
       .addEventListener("click", (evt) => {
         this._deleteCard(evt);
       });
-
-    this._photoElement.addEventListener("click", () => {
-      this._popupImageElement.src = this._link;
-      this._popupImageElement.alt = this._name;
-      this._popupImageCaption.textContent = this._name;
-      this._popupOpenFunction(this._popupImage);
-    });
   }
 
   // генерация и возврат карточки
   generateCard() {
-    this._element = this._getTemplate(this._templateSelector);
-    this._photoElement = this._element.querySelector(".cards__photo");
-
     this._setEventListeners();
 
     this._element.querySelector(".cards__title").textContent = this._name;

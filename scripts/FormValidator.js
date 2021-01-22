@@ -1,8 +1,12 @@
 class FormValidator {
   constructor(settings, formElement) {
     this._formElement = formElement;
-    this._inputSelector = settings.inputSelector;
-    this._submitButtonSelector = settings.submitButtonSelector;
+    this._inputList = Array.from(
+      formElement.querySelectorAll(settings.inputSelector)
+    );
+    this._submitButton = formElement.querySelector(
+      settings.submitButtonSelector
+    );
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
@@ -60,33 +64,26 @@ class FormValidator {
   }
 
   _setEventListeners() {
-    const inputList = Array.from(
-      this._formElement.querySelectorAll(this._inputSelector)
-    );
-    const submitButton = this._formElement.querySelector(
-      this._submitButtonSelector
-    );
-
     // отключить отправку формы по умолчанию
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
 
-    // сбросить отображение ошибок при очистке формы
-    this._formElement.addEventListener("reset", () => {
-      this._resetErrorState(submitButton, inputList);
+    // сбросить отображение ошибок при показе формы
+    this._formElement.addEventListener("popup-show", () => {
+      this._resetErrorState(this._submitButton, this._inputList);
     });
 
     // проверить инпуты на ошибки
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(submitButton, inputList);
+        this._toggleButtonState(this._submitButton, this._inputList);
       });
     });
 
     // переключить состояние кнопки
-    this._toggleButtonState(submitButton, inputList);
+    this._toggleButtonState(this._submitButton, this._inputList);
   }
 
   enableValidation() {

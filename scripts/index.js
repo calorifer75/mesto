@@ -1,6 +1,9 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
+// горячие клавиши
+const ESC = "Escape";
+
 // блок карточек
 const cardsContainer = document.querySelector(".cards");
 
@@ -32,9 +35,12 @@ const popupImageCloseButton = popupImage.querySelector(".popup__close-button");
 const popupImageElement = popupImage.querySelector(".popup__image");
 const popupImageCaption = popupImage.querySelector(".popup__image-caption");
 
+// пользовательские события
+const onPopupShow = new CustomEvent("popup-show");
+
 // нажатие клавиши на документе
 function handleDocumentEscapeDown(evt) {
-  if (evt.key === "Escape") {
+  if (evt.key === ESC) {
     closePopup(document.querySelector(".popup_opened"));
   }
 }
@@ -66,14 +72,10 @@ function handleMestoFormSubmit(event) {
   event.preventDefault();
 
   const item = {
-    popupImage: popupImage,
-    popupImageElement: popupImageElement,
-    popupImageCaption: popupImageCaption,
-    popupOpenFunction: openPopup,
     name: popupMestoName.value,
     link: popupMestoLink.value,
   };
-  const cardInstance = new Card(item, ".cards__template");
+  const cardInstance = new Card(item, ".cards__template", openPopupImage);
   const cardElement = cardInstance.generateCard();
 
   cardsContainer.prepend(cardElement);
@@ -82,12 +84,10 @@ function handleMestoFormSubmit(event) {
 
 // открытие профиля
 profileEditButton.addEventListener("click", () => {
-  popupProfileForm.reset();
-
   popupProfileName.value = profileTitle.textContent;
   popupProfileAbout.value = profileSubtitle.textContent;
-
   openPopup(popupProfile);
+  popupProfileForm.dispatchEvent(onPopupShow);
 });
 
 // закрытие профиля
@@ -99,6 +99,7 @@ popupProfileCloseButton.addEventListener("click", () => {
 mestoAddButton.addEventListener("click", () => {
   popupMestoForm.reset();
   openPopup(popupMesto);
+  popupMestoForm.dispatchEvent(onPopupShow);
 });
 
 // закрытие места
@@ -109,6 +110,14 @@ popupMestoCloseButton.addEventListener("click", () => {
 // отправка форм
 popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
 popupMestoForm.addEventListener("submit", handleMestoFormSubmit);
+
+// открытие картинки
+function openPopupImage(link, name) {
+  popupImageElement.src = link;
+  popupImageElement.alt = name;
+  popupImageCaption.textContent = name;
+  openPopup(popupImage);
+}
 
 // закрытие картинки
 popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
@@ -137,12 +146,7 @@ popupImage.addEventListener("click", function (evt) {
 
 // создание карточек и вывод в DOM
 initialCards.forEach((item) => {
-  item.popupImage = popupImage;
-  item.popupImageElement = popupImageElement;
-  item.popupImageCaption = popupImageCaption;
-  item.popupOpenFunction = openPopup;
-
-  const cardInstance = new Card(item, ".cards__template");
+  const cardInstance = new Card(item, ".cards__template", openPopupImage);
   const cardElement = cardInstance.generateCard();
 
   cardsContainer.append(cardElement);
