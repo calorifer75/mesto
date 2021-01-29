@@ -1,5 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 
 // горячие клавиши
 const ESC = "Escape";
@@ -145,12 +146,19 @@ popupImage.addEventListener("click", function (evt) {
 });
 
 // создание карточек и вывод в DOM
-initialCards.forEach((item) => {
-  const cardInstance = new Card(item, ".cards__template", openPopupImage);
-  const cardElement = cardInstance.generateCard();
+const cardsSection = new Section(
+  {
+    defaultItems: initialCards,
+    renderItemCallback: (item) => {
+      const cardInstance = new Card(item, ".cards__template", openPopupImage);
+      const cardElement = cardInstance.generateCard();
+      return cardElement;
+    },
+  },
+  ".cards"
+);
 
-  cardsContainer.append(cardElement);
-});
+cardsSection.renderDefaultItems();
 
 // создание валидаторов для каждой формы
 const formList = Array.from(document.querySelectorAll(".popup__form"));
