@@ -2,6 +2,7 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import Popup from './Popup.js';
+import popupWidthImage from './popupWidthImage.js';
 
 // горячие клавиши
 const ESC = "Escape";
@@ -43,6 +44,9 @@ const onPopupShow = new CustomEvent("popup-show");
 const popupProfileInstance = new Popup('.popup_type_profile');
 popupProfileInstance.setEventListeners();
 
+const popupImageInstance = new popupWidthImage('.popup_type_image');
+popupImageInstance.setEventListeners();
+
 // нажатие клавиши на документе
 function handleDocumentEscapeDown(evt) {
   if (evt.key === ESC) {
@@ -81,7 +85,7 @@ function handleMestoFormSubmit(event) {
     name: popupMestoName.value,
     link: popupMestoLink.value,
   };
-  const cardInstance = new Card(item, ".cards__template", openPopupImage);
+  const cardInstance = new Card(item, ".cards__template", popupImageInstance.open.bind(popupImageInstance));
   const cardElement = cardInstance.generateCard();
 
   cardsContainer.prepend(cardElement);
@@ -118,16 +122,16 @@ popupMestoCloseButton.addEventListener("click", () => {
 popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
 popupMestoForm.addEventListener("submit", handleMestoFormSubmit);
 
-// открытие картинки
-function openPopupImage(link, name) {
-  popupImageElement.src = link;
-  popupImageElement.alt = name;
-  popupImageCaption.textContent = name;
-  openPopup(popupImage);
-}
+// // открытие картинки
+// function openPopupImage(link, name) {
+//   popupImageElement.src = link;
+//   popupImageElement.alt = name;
+//   popupImageCaption.textContent = name;
+//   openPopup(popupImage);
+// }
 
 // закрытие картинки
-popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
+//popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
 
 // закрытие попупа кликом на оверлей
 function closePopupByOverlay(popupElement, evt) {
@@ -146,17 +150,17 @@ popupMesto.addEventListener("click", function (evt) {
   closePopupByOverlay(popupMesto, evt);
 });
 
-// закрытие картинки кликом на оверлей
-popupImage.addEventListener("click", function (evt) {
-  closePopupByOverlay(popupImage, evt);
-});
+// // закрытие картинки кликом на оверлей
+// popupImage.addEventListener("click", function (evt) {
+//   closePopupByOverlay(popupImage, evt);
+// });
 
 // создание карточек и вывод в DOM
 const cardsSection = new Section(
   {
     defaultItems: initialCards,
     renderItemCallback: (item) => {
-      const cardInstance = new Card(item, ".cards__template", openPopupImage);
+      const cardInstance = new Card(item, ".cards__template", popupImageInstance.open.bind(popupImageInstance));
       const cardElement = cardInstance.generateCard();
       return cardElement;
     },
