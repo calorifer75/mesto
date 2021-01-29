@@ -1,6 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
+import Popup from './Popup.js';
 
 // горячие клавиши
 const ESC = "Escape";
@@ -39,6 +40,9 @@ const popupImageCaption = popupImage.querySelector(".popup__image-caption");
 // пользовательские события
 const onPopupShow = new CustomEvent("popup-show");
 
+const popupProfileInstance = new Popup('.popup_type_profile');
+popupProfileInstance.setEventListeners();
+
 // нажатие клавиши на документе
 function handleDocumentEscapeDown(evt) {
   if (evt.key === ESC) {
@@ -65,7 +69,8 @@ function handleProfileFormSubmit(event) {
   profileTitle.textContent = popupProfileName.value;
   profileSubtitle.textContent = popupProfileAbout.value;
 
-  closePopup(popupProfile);
+  //closePopup(popupProfile);
+  popupProfileInstance.close();
 }
 
 // отправка формы добавления места
@@ -87,14 +92,15 @@ function handleMestoFormSubmit(event) {
 profileEditButton.addEventListener("click", () => {
   popupProfileName.value = profileTitle.textContent;
   popupProfileAbout.value = profileSubtitle.textContent;
-  openPopup(popupProfile);
+  //openPopup(popupProfile);
+  popupProfileInstance.open();
   popupProfileForm.dispatchEvent(onPopupShow);
 });
 
-// закрытие профиля
-popupProfileCloseButton.addEventListener("click", () => {
-  closePopup(popupProfile);
-});
+// // закрытие профиля
+// popupProfileCloseButton.addEventListener("click", () => {
+//   closePopup(popupProfile);
+// });
 
 // открытие места
 mestoAddButton.addEventListener("click", () => {
@@ -130,10 +136,10 @@ function closePopupByOverlay(popupElement, evt) {
   }
 }
 
-// закрытие профиля кликом на оверлей
-popupProfile.addEventListener("click", function (evt) {
-  closePopupByOverlay(popupProfile, evt);
-});
+// // закрытие профиля кликом на оверлей
+// popupProfile.addEventListener("click", function (evt) {
+//   closePopupByOverlay(popupProfile, evt);
+// });
 
 // закрытие места кликом на оверлей
 popupMesto.addEventListener("click", function (evt) {
