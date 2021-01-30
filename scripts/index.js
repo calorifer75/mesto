@@ -1,47 +1,18 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
-import Popup from "./Popup.js";
 import PopupWidthImage from "./PopupWidthImage.js";
 import PopupWidthForm from "./PopupWidthForm.js";
 import UserInfo from "./UserInfo.js";
 
-// горячие клавиши
-const ESC = "Escape";
-
 // блок карточек
 const cardsContainer = document.querySelector(".cards");
 
-// блок переменных профиля
-const popupProfile = document.querySelector(".popup_type_profile");
-const popupProfileCloseButton = popupProfile.querySelector(
-  ".popup__close-button"
-);
-const popupProfileName = popupProfile.querySelector(".popup__input_type_name");
-const popupProfileAbout = popupProfile.querySelector(
-  ".popup__input_type_about"
-);
-const popupProfileForm = popupProfile.querySelector(".popup__form");
+// кнопка открытия профиля
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
 
-// блок переменных добавления места
-const popupMesto = document.querySelector(".popup_type_mesto");
-const popupMestoCloseButton = popupMesto.querySelector(".popup__close-button");
-const popupMestoForm = popupMesto.querySelector(".popup__form");
-const popupMestoName = popupMesto.querySelector(".popup__input_type_name");
-const popupMestoLink = popupMesto.querySelector(".popup__input_type_path");
+// кнопка добавления карточки
 const mestoAddButton = document.querySelector(".profile__add-button");
-
-// блок переменных всплывающей фотографии
-const popupImage = document.querySelector(".popup_type_image");
-const popupImageCloseButton = popupImage.querySelector(".popup__close-button");
-const popupImageElement = popupImage.querySelector(".popup__image");
-const popupImageCaption = popupImage.querySelector(".popup__image-caption");
-
-// пользовательские события
-const onPopupShow = new CustomEvent("popup-show");
 
 // создание объектов
 const userInfoInstance = new UserInfo({
@@ -77,115 +48,15 @@ const popupMestoInstance = new PopupWidthForm(
 );
 popupMestoInstance.setEventListeners();
 
-// // нажатие клавиши на документе
-// function handleDocumentEscapeDown(evt) {
-//   if (evt.key === ESC) {
-//     closePopup(document.querySelector(".popup_opened"));
-//   }
-// }
-
-// // открытие попапов
-// function openPopup(popup) {
-//   document.addEventListener("keydown", handleDocumentEscapeDown);
-//   popup.classList.add("popup_opened");
-// }
-
-// // закрытие попапов
-// function closePopup(popup) {
-//   document.removeEventListener("keydown", handleDocumentEscapeDown);
-//   popup.classList.remove("popup_opened");
-// }
-
-// // отправка формы редактирования профиля
-// function handleProfileFormSubmit(event) {
-//   event.preventDefault();
-
-//   profileTitle.textContent = popupProfileName.value;
-//   profileSubtitle.textContent = popupProfileAbout.value;
-
-//   //closePopup(popupProfile);
-//   popupProfileInstance.close();
-// }
-
-// // отправка формы добавления места
-// function handleMestoFormSubmit(event) {
-//   event.preventDefault();
-
-//   const item = {
-//     name: popupMestoName.value,
-//     link: popupMestoLink.value,
-//   };
-//   const cardInstance = new Card(item, ".cards__template", popupImageInstance.open.bind(popupImageInstance));
-//   const cardElement = cardInstance.generateCard();
-
-//   cardsContainer.prepend(cardElement);
-//   closePopup(popupMesto);
-// }
-
 // открытие профиля
 profileEditButton.addEventListener("click", () => {
-  //popupProfileName.value = profileTitle.textContent;
-  //popupProfileAbout.value = profileSubtitle.textContent;
-  //openPopup(popupProfile);
   popupProfileInstance.open(userInfoInstance.getUserInfo());
-  //popupProfileForm.dispatchEvent(onPopupShow);
 });
-
-// // закрытие профиля
-// popupProfileCloseButton.addEventListener("click", () => {
-//   closePopup(popupProfile);
-// });
 
 // открытие места
 mestoAddButton.addEventListener("click", () => {
   popupMestoInstance.open();
-
-  // popupMestoForm.reset();
-  // openPopup(popupMesto);
-  // popupMestoForm.dispatchEvent(onPopupShow);
 });
-
-// закрытие места
-// popupMestoCloseButton.addEventListener("click", () => {
-//   closePopup(popupMesto);
-// });
-
-// отправка форм
-//popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
-//popupMestoForm.addEventListener("submit", handleMestoFormSubmit);
-
-// // открытие картинки
-// function openPopupImage(link, name) {
-//   popupImageElement.src = link;
-//   popupImageElement.alt = name;
-//   popupImageCaption.textContent = name;
-//   openPopup(popupImage);
-// }
-
-// закрытие картинки
-//popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
-
-// // закрытие попупа кликом на оверлей
-// function closePopupByOverlay(popupElement, evt) {
-//   if (evt.target === evt.currentTarget) {
-//     closePopup(popupElement);
-//   }
-// }
-
-// // закрытие профиля кликом на оверлей
-// popupProfile.addEventListener("click", function (evt) {
-//   closePopupByOverlay(popupProfile, evt);
-// });
-
-// // закрытие места кликом на оверлей
-// popupMesto.addEventListener("click", function (evt) {
-//   closePopupByOverlay(popupMesto, evt);
-// });
-
-// // закрытие картинки кликом на оверлей
-// popupImage.addEventListener("click", function (evt) {
-//   closePopupByOverlay(popupImage, evt);
-// });
 
 // создание карточек и вывод в DOM
 const cardsSection = new Section(
