@@ -4,6 +4,7 @@ import Section from "./Section.js";
 import Popup from "./Popup.js";
 import PopupWidthImage from "./PopupWidthImage.js";
 import PopupWidthForm from "./PopupWidthForm.js";
+import UserInfo from "./UserInfo.js";
 
 // горячие клавиши
 const ESC = "Escape";
@@ -43,11 +44,22 @@ const popupImageCaption = popupImage.querySelector(".popup__image-caption");
 const onPopupShow = new CustomEvent("popup-show");
 
 // создание объектов
-const popupProfileInstance = new Popup(".popup_type_profile");
-popupProfileInstance.setEventListeners();
+const userInfoInstance = new UserInfo({
+  nameSelector: ".profile__title",
+  aboutSelector: ".profile__subtitle",
+});
 
 const popupImageInstance = new PopupWidthImage(".popup_type_image");
 popupImageInstance.setEventListeners();
+
+const popupProfileInstance = new PopupWidthForm(
+  ".popup_type_profile",
+  ({ "profile-name": userName, "profile-about": userAbout }) => {
+    userInfoInstance.setUserInfo({ userName, userAbout });
+    popupProfileInstance.close();
+  }
+);
+popupProfileInstance.setEventListeners();
 
 const popupMestoInstance = new PopupWidthForm(
   ".popup_type_mesto",
@@ -65,35 +77,35 @@ const popupMestoInstance = new PopupWidthForm(
 );
 popupMestoInstance.setEventListeners();
 
-// нажатие клавиши на документе
-function handleDocumentEscapeDown(evt) {
-  if (evt.key === ESC) {
-    closePopup(document.querySelector(".popup_opened"));
-  }
-}
+// // нажатие клавиши на документе
+// function handleDocumentEscapeDown(evt) {
+//   if (evt.key === ESC) {
+//     closePopup(document.querySelector(".popup_opened"));
+//   }
+// }
 
-// открытие попапов
-function openPopup(popup) {
-  document.addEventListener("keydown", handleDocumentEscapeDown);
-  popup.classList.add("popup_opened");
-}
+// // открытие попапов
+// function openPopup(popup) {
+//   document.addEventListener("keydown", handleDocumentEscapeDown);
+//   popup.classList.add("popup_opened");
+// }
 
-// закрытие попапов
-function closePopup(popup) {
-  document.removeEventListener("keydown", handleDocumentEscapeDown);
-  popup.classList.remove("popup_opened");
-}
+// // закрытие попапов
+// function closePopup(popup) {
+//   document.removeEventListener("keydown", handleDocumentEscapeDown);
+//   popup.classList.remove("popup_opened");
+// }
 
-// отправка формы редактирования профиля
-function handleProfileFormSubmit(event) {
-  event.preventDefault();
+// // отправка формы редактирования профиля
+// function handleProfileFormSubmit(event) {
+//   event.preventDefault();
 
-  profileTitle.textContent = popupProfileName.value;
-  profileSubtitle.textContent = popupProfileAbout.value;
+//   profileTitle.textContent = popupProfileName.value;
+//   profileSubtitle.textContent = popupProfileAbout.value;
 
-  //closePopup(popupProfile);
-  popupProfileInstance.close();
-}
+//   //closePopup(popupProfile);
+//   popupProfileInstance.close();
+// }
 
 // // отправка формы добавления места
 // function handleMestoFormSubmit(event) {
@@ -112,11 +124,11 @@ function handleProfileFormSubmit(event) {
 
 // открытие профиля
 profileEditButton.addEventListener("click", () => {
-  popupProfileName.value = profileTitle.textContent;
-  popupProfileAbout.value = profileSubtitle.textContent;
+  //popupProfileName.value = profileTitle.textContent;
+  //popupProfileAbout.value = profileSubtitle.textContent;
   //openPopup(popupProfile);
-  popupProfileInstance.open();
-  popupProfileForm.dispatchEvent(onPopupShow);
+  popupProfileInstance.open(userInfoInstance.getUserInfo());
+  //popupProfileForm.dispatchEvent(onPopupShow);
 });
 
 // // закрытие профиля
@@ -139,7 +151,7 @@ mestoAddButton.addEventListener("click", () => {
 // });
 
 // отправка форм
-popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
+//popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
 //popupMestoForm.addEventListener("submit", handleMestoFormSubmit);
 
 // // открытие картинки
@@ -153,22 +165,22 @@ popupProfileForm.addEventListener("submit", handleProfileFormSubmit);
 // закрытие картинки
 //popupImageCloseButton.addEventListener("click", () => closePopup(popupImage));
 
-// закрытие попупа кликом на оверлей
-function closePopupByOverlay(popupElement, evt) {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupElement);
-  }
-}
+// // закрытие попупа кликом на оверлей
+// function closePopupByOverlay(popupElement, evt) {
+//   if (evt.target === evt.currentTarget) {
+//     closePopup(popupElement);
+//   }
+// }
 
 // // закрытие профиля кликом на оверлей
 // popupProfile.addEventListener("click", function (evt) {
 //   closePopupByOverlay(popupProfile, evt);
 // });
 
-// закрытие места кликом на оверлей
-popupMesto.addEventListener("click", function (evt) {
-  closePopupByOverlay(popupMesto, evt);
-});
+// // закрытие места кликом на оверлей
+// popupMesto.addEventListener("click", function (evt) {
+//   closePopupByOverlay(popupMesto, evt);
+// });
 
 // // закрытие картинки кликом на оверлей
 // popupImage.addEventListener("click", function (evt) {

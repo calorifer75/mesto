@@ -21,6 +21,15 @@ class PopupWidthForm extends Popup {
     return inputValues;
   }
 
+  open(userInfo = undefined) {
+    if (userInfo) {
+      this._form['profile-name'].value = userInfo.userName;
+      this._form['profile-about'].value = userInfo.userAbout;
+    }
+
+    super.open();
+  }
+
   close() {
     this._form.reset();
     this._form.dispatchEvent(onPopupClose);
