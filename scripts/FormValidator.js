@@ -69,8 +69,8 @@ class FormValidator {
       evt.preventDefault();
     });
 
-    // сбросить отображение ошибок при показе формы
-    this._formElement.addEventListener("popup-show", () => {
+    // сбросить отображение ошибок при закрытии формы
+    this._formElement.addEventListener("popup-close", () => {
       this._resetErrorState(this._submitButton, this._inputList);
     });
 
