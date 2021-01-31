@@ -6,14 +6,13 @@
     <meta name="description" content="Четвертая проектная работа" />
     <meta name="keywords" content="Места России, путешествия, фотографии" />
     <meta name="author" content="Вячеслав Войтенко" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Mesto Russia</title>
   </head>
   <body class="body">
     <div class="page">
       <!-- HEADER -->
       <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Логотип" />
+        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип" />
       </header>
 
       <!-- CONTENT -->
@@ -22,7 +21,7 @@
           <div class="profile__info">
             <img
               class="profile__avatar"
-              src="./images/avatar.jpg"
+              src="<%=require('./images/avatar.jpg')%>"
               alt="Аватар"
             />
 
@@ -168,10 +167,5 @@
         <p class="popup__image-caption"></p>
       </div>
     </div>
-
-    <script src="./scripts/initial-cards.js"></script>
-    <script src="./scripts/index.js" type="module"></script>
-    <script src="./scripts/Card.js" type="module"></script>
-    <script src="./scripts/FormValidator.js" type="module"></script>
   </body>
 </html>
