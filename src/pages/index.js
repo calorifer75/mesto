@@ -1,11 +1,11 @@
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import Section from "./Section.js";
-import PopupWidthImage from "./PopupWidthImage.js";
-import PopupWidthForm from "./PopupWidthForm.js";
-import UserInfo from "./UserInfo.js";
-import initialCards from "./initial-cards";
-import '../styles/index.css';
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import PopupWidthImage from "../components/PopupWidthImage.js";
+import PopupWidthForm from "../components/PopupWidthForm.js";
+import UserInfo from "../components/UserInfo.js";
+import initialCards from "../components/initial-cards";
+import './index.css';
 
 // блок карточек
 const cardsContainer = document.querySelector(".cards");
