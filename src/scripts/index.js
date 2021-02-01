@@ -5,7 +5,7 @@ import PopupWidthImage from "./PopupWidthImage.js";
 import PopupWidthForm from "./PopupWidthForm.js";
 import UserInfo from "./UserInfo.js";
 import initialCards from "./initial-cards";
-import './styles/index.css';
+import '../styles/index.css';
 
 // блок карточек
 const cardsContainer = document.querySelector(".cards");
