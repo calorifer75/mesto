@@ -3,7 +3,7 @@ import Popup from "./Popup.js";
 // пользовательские события
 const onPopupClose = new CustomEvent("popup-close");
 
-class PopupWidthForm extends Popup {
+class PopupWithForm extends Popup {
   constructor(popupSelector, formSubmitCallback) {
     super(popupSelector);
     this._formSubmitCallback = formSubmitCallback;
@@ -47,4 +47,4 @@ class PopupWidthForm extends Popup {
   }
 }
 
-export default PopupWidthForm;
+export default PopupWithForm;

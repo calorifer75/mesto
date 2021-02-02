@@ -1,20 +1,26 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import PopupWidthImage from "../components/PopupWidthImage.js";
-import PopupWidthForm from "../components/PopupWidthForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-import initialCards from "../components/initial-cards";
-import './index.css';
+import {
+  initialCards,
+  cardsContainer,
+  profileEditButton,
+  mestoAddButton,
+} from "../utils/constants";
+import "./index.css";
 
-// блок карточек
-const cardsContainer = document.querySelector(".cards");
-
-// кнопка открытия профиля
-const profileEditButton = document.querySelector(".profile__edit-button");
-
-// кнопка добавления карточки
-const mestoAddButton = document.querySelector(".profile__add-button");
+// возвращает готовый HTML элемент карточки
+function createCard({ name, link }, cardSelector, openPopupImageCallback) {
+  const cardInstance = new Card(
+    { name, link },
+    cardSelector,
+    openPopupImageCallback
+  );
+  return cardInstance.generateCard();
+}
 
 // создание объектов
 const userInfoInstance = new UserInfo({
@@ -22,10 +28,10 @@ const userInfoInstance = new UserInfo({
   aboutSelector: ".profile__subtitle",
 });
 
-const popupImageInstance = new PopupWidthImage(".popup_type_image");
+const popupImageInstance = new PopupWithImage(".popup_type_image");
 popupImageInstance.setEventListeners();
 
-const popupProfileInstance = new PopupWidthForm(
+const popupProfileInstance = new PopupWithForm(
   ".popup_type_profile",
   ({ "profile-name": userName, "profile-about": userAbout }) => {
     userInfoInstance.setUserInfo({ userName, userAbout });
@@ -34,15 +40,14 @@ const popupProfileInstance = new PopupWidthForm(
 );
 popupProfileInstance.setEventListeners();
 
-const popupMestoInstance = new PopupWidthForm(
+const popupMestoInstance = new PopupWithForm(
   ".popup_type_mesto",
   ({ "mesto-name": name, "mesto-path": link }) => {
-    const cardInstance = new Card(
+    const cardElement = createCard(
       { name, link },
       ".cards__template",
       popupImageInstance.open.bind(popupImageInstance)
     );
-    const cardElement = cardInstance.generateCard();
 
     cardsContainer.prepend(cardElement);
     popupMestoInstance.close();
@@ -65,12 +70,12 @@ const cardsSection = new Section(
   {
     defaultItems: initialCards,
     renderItemCallback: (item) => {
-      const cardInstance = new Card(
+      const cardElement = createCard(
         item,
         ".cards__template",
         popupImageInstance.open.bind(popupImageInstance)
       );
-      const cardElement = cardInstance.generateCard();
+
       return cardElement;
     },
   },
