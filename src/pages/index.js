@@ -4,6 +4,7 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
   initialCards,
   cardsContainer,
@@ -23,9 +24,18 @@ function createCard({ name, link }, cardSelector, openPopupImageCallback) {
 }
 
 // создание объектов
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-20/",
+  headers: {
+    authorization: "cf384566-77ec-4529-bbb1-a6b45956753d",
+    "Content-Type": "application/json",
+  },
+});
+
 const userInfoInstance = new UserInfo({
   nameSelector: ".profile__title",
   aboutSelector: ".profile__subtitle",
+  avatarSelector: ".profile__avatar",
 });
 
 const popupImageInstance = new PopupWithImage(".popup_type_image");
@@ -33,9 +43,14 @@ popupImageInstance.setEventListeners();
 
 const popupProfileInstance = new PopupWithForm(
   ".popup_type_profile",
-  ({ "profile-name": userName, "profile-about": userAbout }) => {
-    userInfoInstance.setUserInfo({ userName, userAbout });
-    popupProfileInstance.close();
+  ({ "profile-name": name, "profile-about": about }) => {
+    api
+      .setUserInfo({ name, about })
+      .then((newUserInfo) => {
+        userInfoInstance.render(newUserInfo);
+        popupProfileInstance.close();
+      })
+      .catch((err) => console.log(err));
   }
 );
 popupProfileInstance.setEventListeners();
@@ -57,13 +72,26 @@ popupMestoInstance.setEventListeners();
 
 // открытие профиля
 profileEditButton.addEventListener("click", () => {
-  popupProfileInstance.open(userInfoInstance.getUserInfo());
+  api
+    .getUserInfo()
+    .then((userInfo) => {
+      popupProfileInstance.open(userInfo);
+    })
+    .catch((err) => console.log(err));
 });
 
 // открытие места
 mestoAddButton.addEventListener("click", () => {
   popupMestoInstance.open();
 });
+
+// вывод профиля
+api
+  .getUserInfo()
+  .then((userInfo) => {
+    userInfoInstance.render(userInfo);
+  })
+  .catch((err) => console.log(err));
 
 // создание карточек и вывод в DOM
 const cardsSection = new Section(

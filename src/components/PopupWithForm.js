@@ -23,8 +23,8 @@ class PopupWithForm extends Popup {
 
   open(userInfo = undefined) {
     if (userInfo) {
-      this._form['profile-name'].value = userInfo.userName;
-      this._form['profile-about'].value = userInfo.userAbout;
+      this._form['profile-name'].value = userInfo.name;
+      this._form['profile-about'].value = userInfo.about;
     }
 
     super.open();
