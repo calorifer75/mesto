@@ -34,6 +34,14 @@ class Api {
       headers: this._headers,
     }).then(fetchHandle);
   }
+
+  addNewCard({ name, link }) {
+    return fetch(this._baseUrl + "cards/", {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({ name, link }),
+    }).then(fetchHandle);
+  }
 }
 
 export default Api;

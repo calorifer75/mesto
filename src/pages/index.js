@@ -58,14 +58,19 @@ popupProfileInstance.setEventListeners();
 const popupMestoInstance = new PopupWithForm(
   ".popup_type_mesto",
   ({ "mesto-name": name, "mesto-path": link }) => {
-    const cardElement = createCard(
-      { name, link },
-      ".cards__template",
-      popupImageInstance.open.bind(popupImageInstance)
-    );
+    api
+      .addNewCard({ name, link })
+      .then((newCard) => {
+        const cardElement = createCard(
+          newCard,
+          ".cards__template",
+          popupImageInstance.open.bind(popupImageInstance)
+        );
 
-    cardsContainer.prepend(cardElement);
-    popupMestoInstance.close();
+        cardsContainer.prepend(cardElement);
+        popupMestoInstance.close();
+      })
+      .catch((err) => console.log(err));
   }
 );
 popupMestoInstance.setEventListeners();
@@ -94,18 +99,15 @@ api
   .catch((err) => console.log(err));
 
 // создание карточек и вывод в DOM
-const cardsSection = new Section(
-  (item) => {
-    const cardElement = createCard(
-      item,
-      ".cards__template",
-      popupImageInstance.open.bind(popupImageInstance)
-    );
+const cardsSection = new Section((item) => {
+  const cardElement = createCard(
+    item,
+    ".cards__template",
+    popupImageInstance.open.bind(popupImageInstance)
+  );
 
-    return cardElement;
-  },
-  ".cards"
-);
+  return cardElement;
+}, ".cards");
 
 api
   .getInitialCards()
