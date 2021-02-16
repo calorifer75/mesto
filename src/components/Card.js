@@ -4,8 +4,10 @@ class Card {
       .querySelector(tempateSelector)
       .content.cloneNode(true);
     this._photoElement = this._element.querySelector(".cards__photo");
+    this._likeCountElement = this._element.querySelector(".cards__like-count");
     this._name = data.name;
     this._link = data.link;
+    this._likeCount = data.likes.length;
 
     this._photoElement.addEventListener("click", () => {
       openPopupImageCallback(this._link, this._name);
@@ -44,7 +46,7 @@ class Card {
     this._element.querySelector(".cards__title").textContent = this._name;
     this._photoElement.src = this._link;
     this._photoElement.alt = this._name;
-
+    this._likeCountElement.textContent = this._likeCount;
     return this._element;
   }
 }

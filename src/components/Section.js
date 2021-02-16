@@ -12,7 +12,6 @@ class Section {
   // генерирует исходные элементы по умолчанию
   renderItems(items) {
     this._container.innerHTML = '';
-
     items.forEach(item => {
       const element = this._renderItemCallback(item);
       this.addItem(element);

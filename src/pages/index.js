@@ -14,9 +14,13 @@ import {
 import "./index.css";
 
 // возвращает готовый HTML элемент карточки
-function createCard({ name, link }, cardSelector, openPopupImageCallback) {
+function createCard(
+  { name, link, likes },
+  cardSelector,
+  openPopupImageCallback
+) {
   const cardInstance = new Card(
-    { name, link },
+    { name, link, likes },
     cardSelector,
     openPopupImageCallback
   );
