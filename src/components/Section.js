@@ -1,6 +1,5 @@
 class Section {
-  constructor({ defaultItems, renderItemCallback }, containerSelector) {
-    this._defaultItems = defaultItems;
+  constructor(renderItemCallback, containerSelector) {
     this._renderItemCallback = renderItemCallback;
     this._container = document.querySelector(containerSelector);
   }
@@ -11,10 +10,10 @@ class Section {
   }
 
   // генерирует исходные элементы по умолчанию
-  renderDefaultItems() {
+  renderItems(items) {
     this._container.innerHTML = '';
 
-    this._defaultItems.forEach(item => {
+    items.forEach(item => {
       const element = this._renderItemCallback(item);
       this.addItem(element);
     });

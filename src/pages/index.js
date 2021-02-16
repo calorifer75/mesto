@@ -95,22 +95,24 @@ api
 
 // создание карточек и вывод в DOM
 const cardsSection = new Section(
-  {
-    defaultItems: initialCards,
-    renderItemCallback: (item) => {
-      const cardElement = createCard(
-        item,
-        ".cards__template",
-        popupImageInstance.open.bind(popupImageInstance)
-      );
+  (item) => {
+    const cardElement = createCard(
+      item,
+      ".cards__template",
+      popupImageInstance.open.bind(popupImageInstance)
+    );
 
-      return cardElement;
-    },
+    return cardElement;
   },
   ".cards"
 );
 
-cardsSection.renderDefaultItems();
+api
+  .getInitialCards()
+  .then((cards) => {
+    cardsSection.renderItems(cards);
+  })
+  .catch((err) => console.log(err));
 
 // создание валидаторов для каждой формы
 const formList = Array.from(document.querySelectorAll(".popup__form"));

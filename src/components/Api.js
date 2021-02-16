@@ -2,7 +2,9 @@ const fetchHandle = (res) => {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject(`Ошибка чтения/записи данных профиля: статус ${res.status}`);
+  return Promise.reject(
+    `Ошибка чтения/записи данных профиля: статус ${res.status}`
+  );
 };
 
 class Api {
@@ -23,6 +25,13 @@ class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({ name, about }),
+    }).then(fetchHandle);
+  }
+
+  getInitialCards() {
+    return fetch(this._baseUrl + "cards/", {
+      method: "GET",
+      headers: this._headers,
     }).then(fetchHandle);
   }
 }
