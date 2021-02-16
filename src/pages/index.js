@@ -3,6 +3,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupDelete from "../components/PopupDelete.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
@@ -17,12 +18,14 @@ import "./index.css";
 function createCard(
   { name, link, likes },
   cardSelector,
-  openPopupImageCallback
+  openPopupImageCallback,
+  openPopupDeleteCallback
 ) {
   const cardInstance = new Card(
     { name, link, likes },
     cardSelector,
-    openPopupImageCallback
+    openPopupImageCallback,
+    openPopupDeleteCallback
   );
   return cardInstance.generateCard();
 }
@@ -41,6 +44,9 @@ const userInfoInstance = new UserInfo({
   aboutSelector: ".profile__subtitle",
   avatarSelector: ".profile__avatar",
 });
+
+const popupDeleteInstance = new PopupDelete(".popup_type_delete");
+popupDeleteInstance.setEventListeners();
 
 const popupImageInstance = new PopupWithImage(".popup_type_image");
 popupImageInstance.setEventListeners();
@@ -68,7 +74,8 @@ const popupMestoInstance = new PopupWithForm(
         const cardElement = createCard(
           newCard,
           ".cards__template",
-          popupImageInstance.open.bind(popupImageInstance)
+          popupImageInstance.open.bind(popupImageInstance),
+          popupDeleteInstance.open.bind(popupDeleteInstance)
         );
 
         cardsContainer.prepend(cardElement);
@@ -107,7 +114,8 @@ const cardsSection = new Section((item) => {
   const cardElement = createCard(
     item,
     ".cards__template",
-    popupImageInstance.open.bind(popupImageInstance)
+    popupImageInstance.open.bind(popupImageInstance),
+    popupDeleteInstance.open.bind(popupDeleteInstance)
   );
 
   return cardElement;

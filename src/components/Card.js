@@ -1,16 +1,21 @@
 class Card {
-  constructor(data, tempateSelector, openPopupImageCallback) {
+  constructor(data, tempateSelector, openPopupImageCallback, openPopupDeleteCallback) {
     this._element = document
       .querySelector(tempateSelector)
       .content.cloneNode(true);
     this._photoElement = this._element.querySelector(".cards__photo");
     this._likeCountElement = this._element.querySelector(".cards__like-count");
+    this._deleteElement = this._element.querySelector(".cards__trash");
     this._name = data.name;
     this._link = data.link;
     this._likeCount = data.likes.length;
 
     this._photoElement.addEventListener("click", () => {
       openPopupImageCallback(this._link, this._name);
+    });
+
+    this._deleteElement.addEventListener("click", () => {
+      openPopupDeleteCallback();
     });
   }
 
@@ -19,23 +24,12 @@ class Card {
     evt.target.classList.toggle("cards__like_liked");
   }
 
-  // удаление карточки
-  _deleteCard(evt) {
-    evt.target.closest(".cards__card").remove();
-  }
-
   // привязка обработчиков событий
   _setEventListeners() {
     this._element
       .querySelector(".cards__like")
       .addEventListener("click", (evt) => {
         this._toggleLike(evt);
-      });
-
-    this._element
-      .querySelector(".cards__trash")
-      .addEventListener("click", (evt) => {
-        this._deleteCard(evt);
       });
   }
 
