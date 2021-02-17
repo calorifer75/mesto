@@ -7,7 +7,6 @@ import PopupWithButton from "../components/PopupWithButton.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
-  initialCards,
   cardsContainer,
   profileEditButton,
   mestoAddButton,
@@ -30,7 +29,7 @@ function createCard(
   return cardInstance.generateCard();
 }
 
-// создание объектов
+// создание api
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-20/",
   headers: {
@@ -39,27 +38,42 @@ const api = new Api({
   },
 });
 
+// создание userInfo
 const userInfoInstance = new UserInfo({
   nameSelector: ".profile__title",
   aboutSelector: ".profile__subtitle",
   avatarSelector: ".profile__avatar",
 });
 
+// создание попупа для удаления карточки
 const popupDeleteInstance = new PopupWithButton(
   ".popup_type_delete",
   (cardElement, cardId) => {
-    console.log(cardElement);
-    console.log(cardId);
+    //
+    // колбэк удаления карточки
+    //
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        cardElement.remove();
+        popupDeleteInstance.close();
+      })
+      .catch((err) => console.log(err));
   }
 );
 popupDeleteInstance.setEventListeners();
 
+// создание попупа для картинки из карточки
 const popupImageInstance = new PopupWithImage(".popup_type_image");
 popupImageInstance.setEventListeners();
 
+// создание попупа профиля
 const popupProfileInstance = new PopupWithForm(
   ".popup_type_profile",
   ({ "profile-name": name, "profile-about": about }) => {
+    //
+    // колбэк сохранения профиля
+    //
     api
       .setUserInfo({ name, about })
       .then((newUserInfo) => {
@@ -71,9 +85,13 @@ const popupProfileInstance = new PopupWithForm(
 );
 popupProfileInstance.setEventListeners();
 
+// создание попупа карточки
 const popupMestoInstance = new PopupWithForm(
   ".popup_type_mesto",
   ({ "mesto-name": name, "mesto-path": link }) => {
+    //
+    // колбэк сохранения карточки
+    //
     api
       .addNewCard({ name, link })
       .then((newCard) => {
@@ -92,8 +110,11 @@ const popupMestoInstance = new PopupWithForm(
 );
 popupMestoInstance.setEventListeners();
 
-// открытие профиля
+// нажатие кнопки открытия профиля
 profileEditButton.addEventListener("click", () => {
+  //
+  // колбэк открытия профиля
+  //
   api
     .getUserInfo()
     .then((userInfo) => {
@@ -102,12 +123,12 @@ profileEditButton.addEventListener("click", () => {
     .catch((err) => console.log(err));
 });
 
-// открытие места
+// нажатие кнопки добавления карточки
 mestoAddButton.addEventListener("click", () => {
   popupMestoInstance.open();
 });
 
-// вывод профиля
+// отрисовка профиля
 api
   .getUserInfo()
   .then((userInfo) => {
@@ -115,8 +136,11 @@ api
   })
   .catch((err) => console.log(err));
 
-// создание карточек и вывод в DOM
+// создание объекта для отрисовки карточек
 const cardsSection = new Section((item) => {
+  //
+  // колбэк отрисовки карточки
+  //
   const cardElement = createCard(
     item,
     ".cards__template",
@@ -127,6 +151,7 @@ const cardsSection = new Section((item) => {
   return cardElement;
 }, ".cards");
 
+// получение карточек с сервера и вызов их отрисовки
 api
   .getInitialCards()
   .then((cards) => {

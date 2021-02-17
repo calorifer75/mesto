@@ -42,6 +42,13 @@ class Api {
       body: JSON.stringify({ name, link }),
     }).then(fetchHandle);
   }
+
+  deleteCard(cardId) {
+    return fetch(this._baseUrl + "cards/" + String(cardId), {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(fetchHandle);
+  }
 }
 
 export default Api;
