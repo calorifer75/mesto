@@ -9,9 +9,10 @@ class Section {
     this._container.append(element);
   }
 
-  // генерирует исходные элементы по умолчанию
+  // генерирует элементы
   renderItems(items) {
     this._container.innerHTML = '';
+
     items.forEach(item => {
       const element = this._renderItemCallback(item);
       this.addItem(element);

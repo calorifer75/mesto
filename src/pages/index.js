@@ -3,7 +3,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupDelete from "../components/PopupDelete.js";
+import PopupWithButton from "../components/PopupWithButton.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
@@ -16,13 +16,13 @@ import "./index.css";
 
 // возвращает готовый HTML элемент карточки
 function createCard(
-  { name, link, likes },
+  cardInfo,
   cardSelector,
   openPopupImageCallback,
   openPopupDeleteCallback
 ) {
   const cardInstance = new Card(
-    { name, link, likes },
+    cardInfo,
     cardSelector,
     openPopupImageCallback,
     openPopupDeleteCallback
@@ -45,7 +45,13 @@ const userInfoInstance = new UserInfo({
   avatarSelector: ".profile__avatar",
 });
 
-const popupDeleteInstance = new PopupDelete(".popup_type_delete");
+const popupDeleteInstance = new PopupWithButton(
+  ".popup_type_delete",
+  (cardElement, cardId) => {
+    console.log(cardElement);
+    console.log(cardId);
+  }
+);
 popupDeleteInstance.setEventListeners();
 
 const popupImageInstance = new PopupWithImage(".popup_type_image");
