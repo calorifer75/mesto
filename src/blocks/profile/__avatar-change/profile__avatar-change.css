@@ -1,0 +1,7 @@
+.profile__avatar-change {
+  opacity: 0;
+  position: absolute;
+  left: 49px;
+  top: 46px;
+  transition: opacity .3s;
+}

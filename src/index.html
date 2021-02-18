@@ -12,18 +12,30 @@
     <div class="page">
       <!-- HEADER -->
       <header class="header">
-        <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип" />
+        <img
+          class="header__logo"
+          src="<%=require('./images/logo.svg')%>"
+          alt="Логотип"
+        />
       </header>
 
       <!-- CONTENT -->
       <main class="content">
         <section class="profile">
           <div class="profile__info">
-            <img
-              class="profile__avatar"
-              src="<%=require('./images/avatar.jpg')%>"
-              alt="Аватар"
-            />
+            <div class="profile__avatar-cover">
+              <img
+                class="profile__avatar"
+                src="<%=require('./images/avatar.jpg')%>"
+                alt="Аватар"
+              />
+
+              <img
+                class="profile__avatar-change"
+                src="<%=require('./images/pencil.svg')%>"
+                alt="Сменить аватар"
+              />
+            </div>
 
             <div class="profile__text-block">
               <div class="profile__header">

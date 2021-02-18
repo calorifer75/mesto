@@ -2,13 +2,14 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  margin-bottom: 26.25px;
+  /* margin-bottom: 26.25px; */
   object-fit: cover;
+  transition: opacity .3s;
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (min-width: 768px) {
   .profile__avatar {
     margin-bottom: 0;
     margin-right: 30px;
   }
-}
+} */

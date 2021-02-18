@@ -1,0 +1,24 @@
+.profile__avatar-cover {
+  border-radius: 50%;
+  position: relative;
+  margin-bottom: 26.25px;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__avatar-cover {
+    margin-bottom: 0;
+    margin-right: 30px;
+  }
+}
+
+.profile__avatar-cover:hover {
+  cursor: pointer;
+}
+
+.profile__avatar-cover:hover .profile__avatar {
+  opacity: .2;
+}
+
+.profile__avatar-cover:hover .profile__avatar-change {
+  opacity: 1;
+}
