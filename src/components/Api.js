@@ -3,7 +3,7 @@ const fetchHandle = (res) => {
     return res.json();
   }
   return Promise.reject(
-    `Ошибка чтения/записи данных профиля: статус ${res.status}`
+    `Ошибка: статус ${res.status}`
   );
 };
 
@@ -46,6 +46,20 @@ class Api {
   deleteCard(cardId) {
     return fetch(this._baseUrl + "cards/" + String(cardId), {
       method: "DELETE",
+      headers: this._headers,
+    }).then(fetchHandle);
+  }
+
+  toggleLike(cardId, action) {
+    let method = "";
+    if (action === "add") {
+      method = "PUT";
+    } else {
+      method = "DELETE";
+    }
+
+    return fetch(this._baseUrl + "cards/likes/" + String(cardId), {
+      method: method,
       headers: this._headers,
     }).then(fetchHandle);
   }

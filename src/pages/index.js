@@ -18,15 +18,31 @@ function createCard(
   cardInfo,
   cardSelector,
   openPopupImageCallback,
-  openPopupDeleteCallback
+  openPopupDeleteCallback,
+  toggleLikeCallback
 ) {
   const cardInstance = new Card(
     cardInfo,
     cardSelector,
     openPopupImageCallback,
-    openPopupDeleteCallback
+    openPopupDeleteCallback,
+    toggleLikeCallback
   );
   return cardInstance.generateCard();
+}
+
+// коллбэк переключения лайков
+function toggleLike(cardObj) {
+  let action = cardObj._isMyLike ? "remove" : "add";
+
+  api
+    .toggleLike(cardObj._cardId, action)
+    .then((cardInfo) => {
+      cardObj._likeElement.classList.toggle("cards__like_liked");
+      cardObj._likeCountElement.textContent = cardInfo.likes.length;
+      cardObj._isMyLike = !cardObj._isMyLike;
+    })
+    .catch((err) => console.log(err));
 }
 
 // создание api
@@ -99,7 +115,8 @@ const popupMestoInstance = new PopupWithForm(
           newCard,
           ".cards__template",
           popupImageInstance.open.bind(popupImageInstance),
-          popupDeleteInstance.open.bind(popupDeleteInstance)
+          popupDeleteInstance.open.bind(popupDeleteInstance),
+          toggleLike
         );
 
         cardsContainer.prepend(cardElement);
@@ -145,7 +162,8 @@ const cardsSection = new Section((item) => {
     item,
     ".cards__template",
     popupImageInstance.open.bind(popupImageInstance),
-    popupDeleteInstance.open.bind(popupDeleteInstance)
+    popupDeleteInstance.open.bind(popupDeleteInstance),
+    toggleLike
   );
 
   return cardElement;
