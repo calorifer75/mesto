@@ -13,6 +13,16 @@ import {
 } from "../utils/constants";
 import "./index.css";
 
+// получает с сервера и отрисовывает профиль
+function renderProfile() {
+  api
+  .getUserInfo()
+  .then((userInfo) => {
+    userInfoInstance.render(userInfo);
+  })
+  .catch((err) => console.log(err));
+}
+
 // возвращает готовый HTML элемент карточки
 function createCard(
   cardInfo,
@@ -61,20 +71,13 @@ const popupChangeAvatarInstance = new PopupWithForm(
     //
     // колбэк сохранения аватара
     //
-    // api
-    //   .addNewCard({ name, link })
-    //   .then((newCard) => {
-    //     const cardElement = createCard(
-    //       newCard,
-    //       ".cards__template",
-    //       popupImageInstance.open.bind(popupImageInstance),
-    //       popupDeleteInstance.open.bind(popupDeleteInstance),
-    //       toggleLike
-    //     );
-    //     cardsContainer.prepend(cardElement);
-    //     popupMestoInstance.close();
-    //   })
-    //   .catch((err) => console.log(err));
+    api
+      .changeAvatar(link)
+      .then(() => {
+        renderProfile();
+        popupChangeAvatarInstance.close();
+      })
+      .catch((err) => console.log(err));
   }
 );
 popupChangeAvatarInstance.setEventListeners();
@@ -176,12 +179,7 @@ mestoAddButton.addEventListener("click", () => {
 });
 
 // отрисовка профиля
-api
-  .getUserInfo()
-  .then((userInfo) => {
-    userInfoInstance.render(userInfo);
-  })
-  .catch((err) => console.log(err));
+renderProfile();
 
 // создание объекта для отрисовки карточек
 const cardsSection = new Section((item) => {
