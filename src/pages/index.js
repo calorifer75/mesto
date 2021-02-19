@@ -16,11 +16,11 @@ import "./index.css";
 // получает с сервера и отрисовывает профиль
 function renderProfile() {
   api
-  .getUserInfo()
-  .then((userInfo) => {
-    userInfoInstance.render(userInfo);
-  })
-  .catch((err) => console.log(err));
+    .getUserInfo()
+    .then((userInfo) => {
+      userInfoInstance.render(userInfo);
+    })
+    .catch((err) => console.log(err));
 }
 
 // возвращает готовый HTML элемент карточки
@@ -67,17 +67,21 @@ const api = new Api({
 // создание попупа для смены аватара
 const popupChangeAvatarInstance = new PopupWithForm(
   ".popup_type_change-avatar",
-  ({ "avatar-path": link }) => {
+  ({ "avatar-path": link }, buttonElement) => {
     //
     // колбэк сохранения аватара
     //
+    const buttonText = buttonElement.textContent;
+    buttonElement.textContent = "Сохранение...";
+
     api
       .changeAvatar(link)
       .then(() => {
         renderProfile();
         popupChangeAvatarInstance.close();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => (buttonElement.textContent = buttonText));
   }
 );
 popupChangeAvatarInstance.setEventListeners();
@@ -88,7 +92,7 @@ const userInfoInstance = new UserInfo(
     nameSelector: ".profile__title",
     aboutSelector: ".profile__subtitle",
     avatarSelector: ".profile__avatar",
-    changeAvatarSelector: ".profile__avatar-change"
+    changeAvatarSelector: ".profile__avatar-change",
   },
   // колбэк открытия попупа для смены аватара
   popupChangeAvatarInstance.open.bind(popupChangeAvatarInstance)
@@ -119,17 +123,21 @@ popupImageInstance.setEventListeners();
 // создание попупа профиля
 const popupProfileInstance = new PopupWithForm(
   ".popup_type_profile",
-  ({ "profile-name": name, "profile-about": about }) => {
+  ({ "profile-name": name, "profile-about": about }, buttonElement) => {
     //
     // колбэк сохранения профиля
     //
+    const buttonText = buttonElement.textContent;
+    buttonElement.textContent = "Сохранение...";
+
     api
       .setUserInfo({ name, about })
       .then((newUserInfo) => {
         userInfoInstance.render(newUserInfo);
         popupProfileInstance.close();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => (buttonElement.textContent = buttonText));
   }
 );
 popupProfileInstance.setEventListeners();
@@ -137,10 +145,13 @@ popupProfileInstance.setEventListeners();
 // создание попупа карточки
 const popupMestoInstance = new PopupWithForm(
   ".popup_type_mesto",
-  ({ "mesto-name": name, "mesto-path": link }) => {
+  ({ "mesto-name": name, "mesto-path": link }, buttonElement) => {
     //
     // колбэк сохранения карточки
     //
+    const buttonText = buttonElement.textContent;
+    buttonElement.textContent = "Создание...";
+
     api
       .addNewCard({ name, link })
       .then((newCard) => {
@@ -155,7 +166,8 @@ const popupMestoInstance = new PopupWithForm(
         cardsContainer.prepend(cardElement);
         popupMestoInstance.close();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => (buttonElement.textContent = buttonText));
   }
 );
 popupMestoInstance.setEventListeners();
