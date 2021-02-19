@@ -54,12 +54,42 @@ const api = new Api({
   },
 });
 
+// создание попупа для смены аватара
+const popupChangeAvatarInstance = new PopupWithForm(
+  ".popup_type_change-avatar",
+  ({ "avatar-path": link }) => {
+    //
+    // колбэк сохранения аватара
+    //
+    // api
+    //   .addNewCard({ name, link })
+    //   .then((newCard) => {
+    //     const cardElement = createCard(
+    //       newCard,
+    //       ".cards__template",
+    //       popupImageInstance.open.bind(popupImageInstance),
+    //       popupDeleteInstance.open.bind(popupDeleteInstance),
+    //       toggleLike
+    //     );
+    //     cardsContainer.prepend(cardElement);
+    //     popupMestoInstance.close();
+    //   })
+    //   .catch((err) => console.log(err));
+  }
+);
+popupChangeAvatarInstance.setEventListeners();
+
 // создание userInfo
-const userInfoInstance = new UserInfo({
-  nameSelector: ".profile__title",
-  aboutSelector: ".profile__subtitle",
-  avatarSelector: ".profile__avatar",
-});
+const userInfoInstance = new UserInfo(
+  {
+    nameSelector: ".profile__title",
+    aboutSelector: ".profile__subtitle",
+    avatarSelector: ".profile__avatar",
+    changeAvatarSelector: ".profile__avatar-change"
+  },
+  // колбэк открытия попупа для смены аватара
+  popupChangeAvatarInstance.open.bind(popupChangeAvatarInstance)
+);
 
 // создание попупа для удаления карточки
 const popupDeleteInstance = new PopupWithButton(
