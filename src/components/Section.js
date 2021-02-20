@@ -4,8 +4,13 @@ class Section {
     this._container = document.querySelector(containerSelector);
   }
 
-  // добавляет готовый элемент разметки в контейнер
-  addItem(element) {
+  // добавляет готовый элемент разметки в начало контейнера
+  addItemPrepend(element) {
+    this._container.prepend(element);
+  }
+
+  // добавляет готовый элемент разметки в конец контейнера
+  addItemAppend(element) {
     this._container.append(element);
   }
 
@@ -15,7 +20,7 @@ class Section {
 
     items.forEach(item => {
       const element = this._renderItemCallback(item);
-      this.addItem(element);
+      this.addItemAppend(element);
     });
   }
 }

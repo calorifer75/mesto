@@ -1,5 +1,3 @@
-import { myOwnerId } from "../utils/constants.js";
-
 class Card {
   constructor(
     data,
@@ -22,10 +20,11 @@ class Card {
     this._likeCount = data.likes.length;
     this._cardId = data._id;
     this._cardOwnerId = data.owner._id;
+    this._myOwnerId = data.userId;
 
     this._isMyLike = false;
     data.likes.forEach((like) => {
-      if (like._id === myOwnerId) {
+      if (like._id === this._myOwnerId) {
         this._isMyLike = true;
         return;
       }
@@ -47,6 +46,17 @@ class Card {
     });
   }
 
+  // переключение лайка
+  toggleLike() {
+    this._likeElement.classList.toggle("cards__like_liked");
+    this._isMyLike = !this._isMyLike;
+  }
+
+  // установка количества лайков
+  setLikeCount(count) {
+    this._likeCountElement.textContent = count;
+  }
+
   // генерация и возврат карточки
   generateCard() {
     this._element.querySelector(".cards__title").textContent = this._name;
@@ -60,7 +70,7 @@ class Card {
     }
 
     // для чужих карточек корзина не появляется
-    if (this._cardOwnerId !== myOwnerId) {
+    if (this._cardOwnerId !== this._myOwnerId) {
       this._trashElement.classList.add("cards__trash_hide");
     }
 

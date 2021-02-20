@@ -13,16 +13,6 @@ import {
 } from "../utils/constants";
 import "./index.css";
 
-// получает с сервера и отрисовывает профиль
-function renderProfile() {
-  api
-    .getUserInfo()
-    .then((userInfo) => {
-      userInfoInstance.render(userInfo);
-    })
-    .catch((err) => console.log(err));
-}
-
 // возвращает готовый HTML элемент карточки
 function createCard(
   cardInfo,
@@ -48,9 +38,8 @@ function toggleLike(cardObj) {
   api
     .toggleLike(cardObj._cardId, action)
     .then((cardInfo) => {
-      cardObj._likeElement.classList.toggle("cards__like_liked");
-      cardObj._likeCountElement.textContent = cardInfo.likes.length;
-      cardObj._isMyLike = !cardObj._isMyLike;
+      cardObj.toggleLike();
+      cardObj.setLikeCount(cardInfo.likes.length);
     })
     .catch((err) => console.log(err));
 }
@@ -76,8 +65,8 @@ const popupChangeAvatarInstance = new PopupWithForm(
 
     api
       .changeAvatar(link)
-      .then(() => {
-        renderProfile();
+      .then((newUserInfo) => {
+        userInfoInstance.render(newUserInfo);
         popupChangeAvatarInstance.close();
       })
       .catch((err) => console.log(err))
@@ -155,6 +144,8 @@ const popupMestoInstance = new PopupWithForm(
     api
       .addNewCard({ name, link })
       .then((newCard) => {
+        newCard.userId = userInfoInstance.getData().userId;
+
         const cardElement = createCard(
           newCard,
           ".cards__template",
@@ -163,7 +154,7 @@ const popupMestoInstance = new PopupWithForm(
           toggleLike
         );
 
-        cardsContainer.prepend(cardElement);
+        cardsSection.addItemPrepend(cardElement);
         popupMestoInstance.close();
       })
       .catch((err) => console.log(err))
@@ -174,15 +165,7 @@ popupMestoInstance.setEventListeners();
 
 // нажатие кнопки открытия профиля
 profileEditButton.addEventListener("click", () => {
-  //
-  // колбэк открытия профиля
-  //
-  api
-    .getUserInfo()
-    .then((userInfo) => {
-      popupProfileInstance.open(userInfo);
-    })
-    .catch((err) => console.log(err));
+  popupProfileInstance.open(userInfoInstance.getData());
 });
 
 // нажатие кнопки добавления карточки
@@ -190,14 +173,13 @@ mestoAddButton.addEventListener("click", () => {
   popupMestoInstance.open();
 });
 
-// отрисовка профиля
-renderProfile();
-
 // создание объекта для отрисовки карточек
 const cardsSection = new Section((item) => {
   //
   // колбэк отрисовки карточки
   //
+  item.userId = userInfoInstance.getData().userId;
+
   const cardElement = createCard(
     item,
     ".cards__template",
@@ -209,11 +191,21 @@ const cardsSection = new Section((item) => {
   return cardElement;
 }, ".cards");
 
-// получение карточек с сервера и вызов их отрисовки
-api
-  .getInitialCards()
-  .then((cards) => {
-    cardsSection.renderItems(cards);
+// при загрузке страницы
+// получение профиля с сервера
+// получение карточек с сервера
+// отрисовка элементов
+Promise.all([
+  // получение профиля
+  api.getUserInfo(),
+  // получение карточек
+  api.getInitialCards()
+])
+  .then(values => {
+    // отрисовка профиля
+    userInfoInstance.render(values[0]);
+    // отрисовка карточек
+    cardsSection.renderItems(values[1]);
   })
   .catch((err) => console.log(err));
 
